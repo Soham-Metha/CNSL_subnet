@@ -53,7 +53,6 @@ struct IP {
     IP_addr mask;
     IP_Class nw;
     Subnet_Info subnet;
-    Subnet_Range range;
 };
 
 IP_Class lookup(IP_addr ip);
