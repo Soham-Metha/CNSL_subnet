@@ -26,7 +26,7 @@ int main()
     printf("Enter Subnet Count:");
     cnt     = scanf("%hhu", &sub_cnt);
     sub_cnt = get_bit_cnt(sub_cnt);
-    SET_BITS(sub_mask.as_int, class.mask_start_at - sub_cnt - 1, 31);
+    SET_BITS(sub_mask.as_int, class.mask_start_at - sub_cnt + 1, 31);
 
     if (cnt < 1) {
         printf("\nWARN: Subnet count not entered, defaulted to 0.\n");
