@@ -36,7 +36,7 @@ int main()
     //===========================================================================================
     subnet_strt.as_int = ip.as_int & sub_mask.as_int;
     subnet_end.as_int  = ip.as_int & sub_mask.as_int;
-    SET_BITS(subnet_end.as_int, 0, class.mask_start_at - bit_cnt);
+    SET_BITS(subnet_end.as_int, 0, class.mask_start_at - bit_cnt - 1);
     cnt = subnet_end.as_int - subnet_strt.as_int + 1;
 
     //===========================================================================================
