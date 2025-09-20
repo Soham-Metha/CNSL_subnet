@@ -38,10 +38,10 @@ struct IP_Class {
 };
 
 struct Subnet {
-    IP_addr mask;
-    uint8_t cnt;
-    uint8_t bit_cnt;
-    uint8_t lsb_pos;
+    IP_addr  mask;
+    uint32_t cnt;
+    uint8_t  bit_cnt;
+    uint8_t  lsb_pos;
 };
 
 struct Subnet_Range {
@@ -58,7 +58,7 @@ struct IP {
 };
 
 IP_Class lookup(IP_addr ip);
-uint8_t get_bit_cnt(uint8_t subnet_cnt);
+uint8_t get_bit_cnt(uint32_t subnet_cnt);
 const char* ip_to_str(IP_addr ip, uint8_t mask_start_at, uint8_t subnet_lsb);
 
 #endif
