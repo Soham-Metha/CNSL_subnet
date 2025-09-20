@@ -2,22 +2,22 @@
 #include <string.h>
 #include <subnet/ip.h>
 
-static IP_Class IP_LUT[CLASS_CNT] = {
-    [CLASS_A] = { .name = "CLASS A", .end_at = 127, .nw_addr_lsb = 24 },
-    [CLASS_B] = { .name = "CLASS B", .end_at = 191, .nw_addr_lsb = 16 },
-    [CLASS_C] = { .name = "CLASS C", .end_at = 223, .nw_addr_lsb = 8  },
-    [CLASS_D] = { .name = "CLASS D", .end_at = 239, .nw_addr_lsb = 0  },
-    [CLASS_E] = { .name = "CLASS E", .end_at = 255, .nw_addr_lsb = 0  },
-};
-
 IP_Class lookup(IP ip)
 {
-    for (int i = CLASS_A; i < CLASS_CNT; i++) {
-        if (ip.octet[3] <= IP_LUT[i].end_at) {
-            return IP_LUT[i];
-        }
+    switch (ip.octet[3]) {
+    case 1 ... 127:
+        return (IP_Class) { .name = "CLASS A", .nw_addr_lsb = 24 };
+    case 128 ... 191:
+        return (IP_Class) { .name = "CLASS B", .nw_addr_lsb = 16 };
+    case 192 ... 223:
+        return (IP_Class) { .name = "CLASS C", .nw_addr_lsb = 8 };
+    case 224 ... 239:
+        return (IP_Class) { .name = "CLASS D", .nw_addr_lsb = 0 };
+    case 240 ... 255:
+        return (IP_Class) { .name = "CLASS E", .nw_addr_lsb = 0 };
+    default:
+        assert(0 && "INVALID IP ADDRESS!!!");
     }
-    assert(0 && "INVALID IP ADDRESS!!!");
 }
 
 unsigned char get_bit_cnt(unsigned char subnet_cnt)
