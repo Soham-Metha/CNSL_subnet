@@ -27,7 +27,7 @@ unsigned char get_bit_cnt(unsigned char subnet_cnt)
     return pow;
 }
 
-char byte_str[8] = "00000000";
+char byte_str[9] = "00000000";
 char* get_bits(unsigned char byte)
 {
     for (int i = 7; i >= 0; i--) {
