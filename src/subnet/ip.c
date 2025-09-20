@@ -31,7 +31,7 @@ char byte_str[9] = "00000000";
 char* get_bits(unsigned char byte)
 {
     for (int i = 7; i >= 0; i--) {
-        byte_str[8 - i] = (byte & (1 << i)) ? '1' : '0';
+        byte_str[8 - i-1] = (byte & (1 << i)) ? '1' : '0';
     }
     return byte_str;
 }
