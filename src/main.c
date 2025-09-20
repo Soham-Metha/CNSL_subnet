@@ -20,7 +20,7 @@ int main()
     SET_BITS(mask.as_int, class.mask_start_at, 31);
 
     if (cnt < 4) {
-        printf("WARN: Only read %d octet(s), defaulted remining octets to 0.\n", cnt);
+        printf("WARN: Only read %d octet(s), defaulted remining octet(s) to 0.\n", cnt);
     }
 
     //===========================================================================================
