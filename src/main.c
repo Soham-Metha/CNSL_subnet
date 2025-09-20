@@ -46,6 +46,7 @@ int main()
     printf("\n│ CLASS        │  %-54s │", class.class_name);
     printf("\n├────────────────────────────────────────────────────────────────────────┤");
     printf("\n│ SUBNET MASK  │  %-344s │", ip_to_str(sub_mask, class.mask_start_at, bit_cnt));
+    printf("\n│ SUBNET BITS  │  %-54d │", bit_cnt);
     printf("\n│ RANGE        │  %-54d │", cnt);
     printf("\n└────────────────────────────────────────────────────────────────────────┘\n");
 
