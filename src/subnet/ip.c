@@ -1,4 +1,3 @@
-#include <stdio.h>
 #include <subnet/ip.h>
 
 IP_Class lookup(IP_addr ip)
