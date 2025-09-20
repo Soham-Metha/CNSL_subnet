@@ -2,18 +2,18 @@
 #include <string.h>
 #include <subnet/ip.h>
 
-NW_Class lookup(IP ip)
+IP_Class lookup(IP ip)
 {
     if (ip.octet[3] <= 127)
-        return (NW_Class) { .name = "CLASS A", .nw_addr_lsb = 24 };
+        return (IP_Class) { .name = "CLASS A", .nw_addr_lsb = 24 };
     if (ip.octet[3] <= 191)
-        return (NW_Class) { .name = "CLASS B", .nw_addr_lsb = 16 };
+        return (IP_Class) { .name = "CLASS B", .nw_addr_lsb = 16 };
     if (ip.octet[3] <= 223)
-        return (NW_Class) { .name = "CLASS C", .nw_addr_lsb = 8 };
+        return (IP_Class) { .name = "CLASS C", .nw_addr_lsb = 8 };
     if (ip.octet[3] <= 239)
-        return (NW_Class) { .name = "CLASS D", .nw_addr_lsb = 0 };
+        return (IP_Class) { .name = "CLASS D", .nw_addr_lsb = 0 };
     else
-        return (NW_Class) { .name = "CLASS E", .nw_addr_lsb = 0 };
+        return (IP_Class) { .name = "CLASS E", .nw_addr_lsb = 0 };
 }
 
 unsigned char get_bit_cnt(unsigned char subnet_cnt)

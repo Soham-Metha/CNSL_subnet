@@ -9,7 +9,7 @@ int main()
     printf("Enter IP: ");
     IP ip            = { 0 };
     IP mask          = { 0 };
-    NW_Class nw_addr = { 0 };
+    IP_Class nw_addr = { 0 };
     int octets_read  = scanf("%hhu.%hhu.%hhu.%hhu", &ip.octet[3], &ip.octet[2], &ip.octet[1], &ip.octet[0]);
     if (octets_read < 4) {
         printf("WARN: Only read %d octet(s), defaulted remining octet(s) to 0.\n", octets_read);
