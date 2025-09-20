@@ -1,7 +1,18 @@
 #ifndef PROJ
 #define PROJ
 
-#define SET_BIT(val, pos) val = val & 1 << pos;
+#define SET_BIT(val, pos)             \
+    {                                 \
+        assert(pos >= 0 && pos < 32); \
+        val = val & 1 << pos;         \
+    }
+
+#define SET_BITS(val, start, stop)            \
+    {                                         \
+        for (int i = start; i <= stop; i++) { \
+            SET_BIT(val, i)                   \
+        }                                     \
+    }
 
 typedef enum IP_classes {
     CLASS_A,
@@ -23,6 +34,7 @@ union IP {
 struct IP_Class {
     const char* class_name;
     unsigned char end_at;
+    unsigned char mask_start_at;
 };
 
 IP_Class lookup(IP ip);
