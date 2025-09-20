@@ -52,6 +52,7 @@ int main()
     //===========================================================================================
     printf("\n┌────────────────────────────────────────────────────────────────────────┐");
     for (int i = 1; i <= sub_cnt; i++) {
+		printf("\n│              │  %-54s │", "");
         printf("\n│ SUBNET NO.   │  %-54d │", i);
         printf("\n│ SUBNET START │  %-54s │", ip_to_str(subnet_strt));
         printf("\n│ SUBNET END   │  %-54s │", ip_to_str(subnet_end));
