@@ -11,7 +11,7 @@ static IP_Class IP_LUT[CLASS_CNT] = {
 IP_Class lookup(IP ip)
 {
     for (int i = CLASS_A; i < CLASS_CNT; i++) {
-        if (ip.octet[0] <= IP_LUT[i].end_at) {
+        if (ip.octet[3] <= IP_LUT[i].end_at) {
             return IP_LUT[i];
         }
     }
