@@ -52,9 +52,9 @@ const char* ip_to_str(IP ip, unsigned char mask_start_at, unsigned char subnet_b
     ptr += sprintf(ptr, " │ ");
 
     for (int i = 31; i >= 0; i--) {
-        if (i >= mask_start_at)
+        if (i == mask_start_at)
             ptr += sprintf(ptr, "\033[32m");
-        else if (i >= mask_start_at - subnet_bit_cnt)
+        else if (i == mask_start_at - subnet_bit_cnt)
             ptr += sprintf(ptr, "\033[33m");
         else
             ptr += sprintf(ptr, "\033[31m");
