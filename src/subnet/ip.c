@@ -12,10 +12,8 @@ IP_Class lookup(IP ip)
         return (IP_Class) { .name = "CLASS C", .nw_addr_lsb = 8 };
     if (ip.octet[3] <= 239)
         return (IP_Class) { .name = "CLASS D", .nw_addr_lsb = 0 };
-    if (ip.octet[3] <= 255)
+    else
         return (IP_Class) { .name = "CLASS E", .nw_addr_lsb = 0 };
-
-    assert(0 && "INVALID IP ADDRESS!!!");
 }
 
 unsigned char get_bit_cnt(unsigned char subnet_cnt)
