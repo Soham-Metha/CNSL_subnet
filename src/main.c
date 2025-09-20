@@ -9,26 +9,26 @@ int main()
     printf("Enter IP: ");
     IP ip           = { 0 };
     int octets_read = scanf("%hhu.%hhu.%hhu.%hhu", &ip.octet[3], &ip.octet[2], &ip.octet[1], &ip.octet[0]);
-    IP_Class class  = lookup(ip);
-    IP mask         = { 0 };
-    SET_BITS(mask.addr, class.nw_addr_lsb, IP_ADDRESS_SIZE - 1);
-
     if (octets_read < 4) {
         printf("WARN: Only read %d octet(s), defaulted remining octet(s) to 0.\n", octets_read);
     }
 
+    IP_Class class = lookup(ip);
+    IP mask        = { 0 };
+    SET_BITS(mask.addr, class.nw_addr_lsb, IP_ADDRESS_SIZE - 1);
+
     //===========================================================================================
     printf("Enter Subnet Count: ");
-    unsigned char sub_cnt        = 0;
-    bool sub_cnt_read            = scanf("%hhu", &sub_cnt);
+    unsigned char sub_cnt = 0;
+    bool sub_cnt_read     = scanf("%hhu", &sub_cnt);
+    if (sub_cnt_read != true) {
+        printf("WARN: Subnet count not entered, defaulted to 0.\n");
+    }
+
     unsigned char subnet_bit_cnt = get_bit_cnt(sub_cnt);
     unsigned char subnet_lsb     = class.nw_addr_lsb - subnet_bit_cnt;
     IP sub_mask                  = { 0 };
     SET_BITS(sub_mask.addr, subnet_lsb, IP_ADDRESS_SIZE - 1);
-
-    if (sub_cnt_read < 1) {
-        printf("WARN: Subnet count not entered, defaulted to 0.\n");
-    }
 
     //===========================================================================================
     int range      = 1 << subnet_lsb;
