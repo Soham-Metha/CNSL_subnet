@@ -41,7 +41,7 @@ int main()
 
     //===========================================================================================
     printf("\n┌────────────────────────────────────────────────────────────────────────┐");
-    printf("\n│ IP           │  %-400s │", ip_to_str(ip, class.mask_start_at, 0));
+    printf("\n│ IP           │  %-355s │", ip_to_str(ip, class.mask_start_at, 0));
     printf("\n│ MASK         │  %-55s │", ip_to_str(mask, class.mask_start_at, 0));
     printf("\n│ CLASS        │  %-54s │", class.class_name);
     printf("\n├────────────────────────────────────────────────────────────────────────┤");
