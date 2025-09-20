@@ -16,7 +16,7 @@ int main()
     }
 
     nw_addr = lookup(ip);
-    SET_BITS(mask.addr, nw_addr.nw_addr_lsb, IP_ADDRESS_SIZE - 1);
+    SET_BITS(mask.addr, nw_addr.lsb, IP_ADDRESS_SIZE - 1);
 
     //===========================================================================================
     printf("Enter Subnet Count: ");
@@ -30,7 +30,7 @@ int main()
     }
 
     subnet_bitcnt = get_bit_cnt(subnet_cnt);
-    subnet_lsb    = nw_addr.nw_addr_lsb - subnet_bitcnt;
+    subnet_lsb    = nw_addr.lsb - subnet_bitcnt;
 
     SET_BITS(subnet_mask.addr, subnet_lsb, IP_ADDRESS_SIZE - 1);
 
@@ -42,11 +42,11 @@ int main()
 
     //===========================================================================================
     printf("\n┌────────────────────────────────────────────────────────────────────────┐");
-    printf("\n│ IP           │  %-91s │", ip_to_str(ip, nw_addr.nw_addr_lsb, 0));
-    printf("\n│ MASK         │  %-91s │", ip_to_str(mask, nw_addr.nw_addr_lsb, 0));
+    printf("\n│ IP           │  %-91s │", ip_to_str(ip, nw_addr.lsb, 0));
+    printf("\n│ MASK         │  %-91s │", ip_to_str(mask, nw_addr.lsb, 0));
     printf("\n│ CLASS        │  %-54s │", nw_addr.name);
     printf("\n├────────────────────────────────────────────────────────────────────────┤");
-    printf("\n│ SUBNET MASK  │  %-91s │", ip_to_str(subnet_mask, nw_addr.nw_addr_lsb, subnet_bitcnt));
+    printf("\n│ SUBNET MASK  │  %-91s │", ip_to_str(subnet_mask, nw_addr.lsb, subnet_bitcnt));
     printf("\n│ SUBNET BITS  │  %-54d │", subnet_bitcnt);
     printf("\n│ RANGE        │  %-54d │", range);
     printf("\n└────────────────────────────────────────────────────────────────────────┘\n");
@@ -56,8 +56,8 @@ int main()
     for (int i = 1; i <= subnet_cnt; i++) {
         printf("\n│              │  %-54s │", "");
         printf("\n│ SUBNET NO.   │  %-54d │", i);
-        printf("\n│ SUBNET START │  %-91s │", ip_to_str(subnet_strt, nw_addr.nw_addr_lsb, subnet_bitcnt));
-        printf("\n│ SUBNET END   │  %-91s │", ip_to_str(subnet_end, nw_addr.nw_addr_lsb, subnet_bitcnt));
+        printf("\n│ SUBNET START │  %-91s │", ip_to_str(subnet_strt, nw_addr.lsb, subnet_bitcnt));
+        printf("\n│ SUBNET END   │  %-91s │", ip_to_str(subnet_end, nw_addr.lsb, subnet_bitcnt));
         subnet_strt.addr += range;
         subnet_end.addr += range;
     }
