@@ -2,6 +2,7 @@
 #define PROJ
 #include <assert.h>
 #include <inttypes.h>
+#include <stdio.h>
 
 #define IP_ADDRESS_SIZE 32
 #define TEST_BIT(val, pos) (val) & (1 << (pos))
