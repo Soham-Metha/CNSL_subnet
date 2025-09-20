@@ -23,10 +23,8 @@ IP_Class lookup(IP ip)
 unsigned char get_bit_cnt(unsigned char subnet_cnt)
 {
     unsigned char pow = 0;
-    while ((1 << pow) < subnet_cnt) {
-        pow += 1;
-    }
-    return pow;
+    while ((1 << pow++) < subnet_cnt) { }
+    return pow - 1;
 }
 
 const char* ip_to_str(IP ip, unsigned char mask_start_at, unsigned char subnet_bit_cnt)
