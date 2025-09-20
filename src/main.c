@@ -40,13 +40,12 @@ int main()
 
     //===========================================================================================
     printf("\n----------------------------------------");
-    printf("\nIP    |  ");
-    print_ip(ip);
-    printf("\nMASK  |  %3hhu.%3hhu.%3hhu.%3hhu        ", mask.octet[3], mask.octet[2], mask.octet[1], mask.octet[0]);
-    printf("\nCLASS |  %s                             ", class.class_name);
-    printf("\nSUBNET|  %3hhu.%3hhu.%3hhu.%3hhu        ", sub_mask.octet[3], sub_mask.octet[2], sub_mask.octet[1], sub_mask.octet[0]);
-    printf("\nSTRT  |  %3hhu.%3hhu.%3hhu.%3hhu        ", first_subnet_strt.octet[3], first_subnet_strt.octet[2], first_subnet_strt.octet[1], first_subnet_strt.octet[0]);
-    printf("\nEND   |  %3hhu.%3hhu.%3hhu.%3hhu        ", first_subnet_end.octet[3], first_subnet_end.octet[2], first_subnet_end.octet[1], first_subnet_end.octet[0]);
+    printf("\nIP    |  "); print_ip(ip);
+    printf("\nCLASS | %s", class.class_name);
+    printf("\nMASK  |  "); print_ip(mask);
+    printf("\nSUBNET|  "); print_ip(sub_mask);
+    printf("\nSTRT  |  "); print_ip(first_subnet_strt);
+    printf("\nEND   |  "); print_ip(first_subnet_end);
     printf("\nRANGE |  %d                             ", cnt);
     printf("\n----------------------------------------\n\n");
     return 0;
