@@ -1,3 +1,4 @@
+#include <stdio.h>
 #include <subnet/ip.h>
 
 static IP_Class IP_LUT[CLASS_CNT] = {
