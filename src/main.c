@@ -25,7 +25,7 @@ int main()
     SET_BITS(sub_mask.as_int, class.mask_start_at - sub_cnt, 31);
 
     if (cnt < 1) {
-        printf("\nWARN: Subnet count not entered, defaulted to 0.\n", cnt);
+        printf("\nWARN: Subnet count not entered, defaulted to 0.\n");
     }
 
     printf("\n----------------------------------------");
