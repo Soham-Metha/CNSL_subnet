@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <subnet/ip.h>
+#include <assert.h>
 
 static IP_Class IP_LUT[CLASS_CNT] = {
     [CLASS_E] = { .class_name = "CLASS E", .start_at = 248 },
@@ -16,4 +17,5 @@ IP_Class lookup(IP ip)
             return IP_LUT[i];
         }
     }
+    assert(0 && "INVALID IP ADDRESS!!!");
 }
