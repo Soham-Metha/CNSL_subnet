@@ -58,7 +58,7 @@ const char* ip_to_str(IP ip, unsigned char mask_start_at, unsigned char subnet_b
 
         if (i == mask_start_at)
             ptr += sprintf(ptr, "\033[33m");
-        else if (i == mask_start_at - subnet_bit_cnt)
+        if (i == mask_start_at - subnet_bit_cnt)
             ptr += sprintf(ptr, "\033[31m");
 
         if (i % 8 == 0 && i != 0)
