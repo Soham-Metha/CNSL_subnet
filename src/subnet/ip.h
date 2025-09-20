@@ -41,6 +41,6 @@ struct IP_Class {
 
 IP_Class lookup(IP ip);
 unsigned char get_bit_cnt(unsigned char subnet_cnt);
-void print_ip(IP ip);
+const char* ip_to_str(IP ip);
 
 #endif
