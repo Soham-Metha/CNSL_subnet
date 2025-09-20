@@ -39,9 +39,15 @@ char* get_bits(unsigned char byte)
 
 void print_ip(IP ip)
 {
-    printf("%3hhu.%3hhu.%3hhu.%3hhu | ", ip.octet[3], ip.octet[2], ip.octet[1], ip.octet[0]);
-    printf("%s.", get_bits(ip.octet[3]));
-    printf("%s.", get_bits(ip.octet[2]));
-    printf("%s.", get_bits(ip.octet[1]));
-    printf("%s ", get_bits(ip.octet[0]));
+
+    printf("%3hhu.%3hhu.%3hhu.%3hhu | ",
+        ip.octet[3], ip.octet[2], ip.octet[1], ip.octet[0]);
+
+    printf("%s.%s.%s.%s",
+        get_bits(ip.octet[3]),
+        get_bits(ip.octet[2]),
+        get_bits(ip.octet[1]),
+        get_bits(ip.octet[0]));
+
+    printf("\n");
 }
