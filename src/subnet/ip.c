@@ -26,7 +26,7 @@ unsigned char get_bit_cnt(unsigned char subnet_cnt)
     while ((1 << pow) < subnet_cnt) {
         pow += 1;
     }
-    return pow + 1;
+    return pow;
 }
 
 const char* ip_to_str(IP ip, unsigned char mask_start_at, unsigned char subnet_bit_cnt)
