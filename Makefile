@@ -2,7 +2,7 @@ BUILDS := ./build
 
 CC	   := gcc
 CFLAGS := -Wall -Wextra -Werror -Wfatal-errors -Wswitch-enum -pedantic -O3 -std=c2x
-LIBS   := -lncursesw -I ./include
+LIBS   := -lncursesw -I ./src
 
 $(BUILDS):
 	@mkdir -p $@
