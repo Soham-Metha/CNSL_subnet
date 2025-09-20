@@ -44,7 +44,7 @@ const char* ip_to_str(IP ip, unsigned char nw_addr_lsb, unsigned char subnet_bit
 
     for (int i = 31; i >= 0; i--) {
 
-        ptr += sprintf(ptr, "%c", TEST_BIT(ip.as_int, i) ? '1' : '0');
+        ptr += sprintf(ptr, "%c", TEST_BIT(ip.addr, i) ? '1' : '0');
         if (i % 8 == 0 && i != 0)
             ptr += sprintf(ptr, ".");
 

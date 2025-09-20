@@ -23,7 +23,7 @@ typedef union IP IP;
 
 union IP {
     unsigned char octet[4];
-    uint32_t as_int;
+    uint32_t addr;
 };
 
 struct IP_Class {

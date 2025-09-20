@@ -17,7 +17,7 @@ int main()
     printf("Enter IP: ");
     cnt   = scanf("%hhu.%hhu.%hhu.%hhu", &ip.octet[3], &ip.octet[2], &ip.octet[1], &ip.octet[0]);
     class = lookup(ip);
-    SET_BITS(mask.as_int, class.nw_addr_lsb, 31);
+    SET_BITS(mask.addr, class.nw_addr_lsb, 31);
 
     if (cnt < 4) {
         printf("WARN: Only read %d octet(s), defaulted remining octet(s) to 0.\n", cnt);
@@ -27,17 +27,17 @@ int main()
     printf("Enter Subnet Count: ");
     cnt     = scanf("%hhu", &sub_cnt);
     bit_cnt = get_bit_cnt(sub_cnt);
-    SET_BITS(sub_mask.as_int, class.nw_addr_lsb - bit_cnt, 31);
+    SET_BITS(sub_mask.addr, class.nw_addr_lsb - bit_cnt, 31);
 
     if (cnt < 1) {
         printf("WARN: Subnet count not entered, defaulted to 0.\n");
     }
 
     //===========================================================================================
-    subnet_strt.as_int = ip.as_int & sub_mask.as_int;
-    subnet_end.as_int  = ip.as_int & sub_mask.as_int;
-    SET_BITS(subnet_end.as_int, 0, class.nw_addr_lsb - bit_cnt - 1);
-    cnt = subnet_end.as_int - subnet_strt.as_int + 1;
+    subnet_strt.addr = ip.addr & sub_mask.addr;
+    subnet_end.addr  = ip.addr & sub_mask.addr;
+    SET_BITS(subnet_end.addr, 0, class.nw_addr_lsb - bit_cnt - 1);
+    cnt = subnet_end.addr - subnet_strt.addr + 1;
 
     //===========================================================================================
     printf("\n┌────────────────────────────────────────────────────────────────────────┐");
@@ -57,8 +57,8 @@ int main()
         printf("\n│ SUBNET NO.   │  %-53d  │", i);
         printf("\n│ SUBNET START │  %-344s │", ip_to_str(subnet_strt, class.nw_addr_lsb, bit_cnt));
         printf("\n│ SUBNET END   │  %-344s │", ip_to_str(subnet_end, class.nw_addr_lsb, bit_cnt));
-        subnet_strt.as_int += cnt;
-        subnet_end.as_int += cnt;
+        subnet_strt.addr += cnt;
+        subnet_end.addr += cnt;
     }
     printf("\n│              │  %-53s  │", "");
     printf("\n└────────────────────────────────────────────────────────────────────────┘\n\n");
