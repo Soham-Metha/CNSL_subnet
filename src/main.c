@@ -43,7 +43,7 @@ int main()
     printf("\nIP                 |  %s", ip_to_str(ip));
     printf("\nMASK               |  %s", ip_to_str(mask));
     printf("\nCLASS              |  %s", class.class_name);
-    printf("\n=============================================\n\n");
+    printf("\n=============================================");
     printf("\nSUBNET MASK        |  %s", ip_to_str(sub_mask));
     printf("\nFIRST SUBNET START |  %s", ip_to_str(first_subnet_strt));
     printf("\nFIRST SUBNET END   |  %s", ip_to_str(first_subnet_end));
