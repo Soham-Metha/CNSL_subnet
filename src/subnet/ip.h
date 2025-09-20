@@ -18,7 +18,7 @@
         }                                         \
     } while (0)
 
-typedef struct IP_Class IP_Class;
+typedef struct NW_Class NW_Class;
 typedef union IP IP;
 
 union IP {
@@ -26,12 +26,12 @@ union IP {
     uint32_t addr;
 };
 
-struct IP_Class {
+struct NW_Class {
     const char* name;
     unsigned char nw_addr_lsb;
 };
 
-IP_Class lookup(IP ip);
+NW_Class lookup(IP ip);
 unsigned char get_bit_cnt(unsigned char subnet_cnt);
 const char* ip_to_str(IP ip, unsigned char mask_start_at, unsigned char subnet_bit_cnt);
 
