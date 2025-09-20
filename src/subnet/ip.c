@@ -40,7 +40,7 @@ char* get_bits(unsigned char byte)
 
 const char* ip_to_str(IP ip)
 {
-    static char buf[51];
+    static char buf[54];
     char* ptr = buf;
 
     ptr += sprintf(ptr, "%3hhu.%3hhu.%3hhu.%3hhu │ ",
