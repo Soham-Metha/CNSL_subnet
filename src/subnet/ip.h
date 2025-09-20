@@ -33,6 +33,6 @@ struct IP_Class {
 
 IP_Class lookup(IP ip);
 unsigned char get_bit_cnt(unsigned char subnet_cnt);
-const char* ip_to_str(IP ip, unsigned char mask_start_at, unsigned char subnet_bit_cnt);
+const char* ip_to_str(IP ip, unsigned char mask_start_at, unsigned char subnet_lsb);
 
 #endif
