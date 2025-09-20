@@ -1,6 +1,5 @@
-#include <stdio.h>
-#include <subnet/ip.h>
 #include <assert.h>
+#include <subnet/ip.h>
 
 static IP_Class IP_LUT[CLASS_CNT] = {
     [CLASS_E] = { .class_name = "CLASS E", .start_at = 248 },
