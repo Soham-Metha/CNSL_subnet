@@ -39,14 +39,15 @@ int main()
     cnt = first_subnet_end.as_int - first_subnet_strt.as_int + 1;
 
     //===========================================================================================
-    printf("\n----------------------------------------");
-    printf("\nIP    |  %s", ip_to_str(ip));
-    printf("\nCLASS |  %s", class.class_name);
-    printf("\nMASK  |  %s", ip_to_str(mask));
-    printf("\nSUBNET|  %s", ip_to_str(sub_mask));
-    printf("\nSTRT  |  %s", ip_to_str(first_subnet_strt));
-    printf("\nEND   |  %s", ip_to_str(first_subnet_end));
-    printf("\nRANGE |  %d", cnt);
-    printf("\n----------------------------------------\n\n");
+    printf("\n=============================================");
+    printf("\nIP                 |  %s", ip_to_str(ip));
+    printf("\nCLASS              |  %s", class.class_name);
+    printf("\nMASK               |  %s", ip_to_str(mask));
+    printf("\n=============================================\n\n");
+    printf("\nSUBNET MASK        |  %s", ip_to_str(sub_mask));
+    printf("\nFIRST SUBNET START |  %s", ip_to_str(first_subnet_strt));
+    printf("\nFIRST SUBNET END   |  %s", ip_to_str(first_subnet_end));
+    printf("\nRANGE              |  %d", cnt);
+    printf("\n=============================================\n\n");
     return 0;
 }
