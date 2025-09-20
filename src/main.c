@@ -1,4 +1,3 @@
-#include <stdbool.h>
 #include <stdio.h>
 #include <subnet/ip.h>
 
@@ -23,7 +22,7 @@ int main()
 
     {     // Read Subnet Count
         printf("Enter Subnet Count: ");
-        if (scanf("%hhu", &ip.subnet.cnt) != true) {
+        if (scanf("%hhu", &ip.subnet.cnt) < 1) {
             printf("WARN: Subnet count not entered, defaulted to 0.\n");
         }
     }
