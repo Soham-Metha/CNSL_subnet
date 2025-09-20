@@ -38,7 +38,7 @@ union IP {
 struct IP_Class {
     const char* class_name;
     unsigned char end_at;
-    unsigned char mask_start_at;
+    unsigned char nw_addr_lsb;
 };
 
 IP_Class lookup(IP ip);
