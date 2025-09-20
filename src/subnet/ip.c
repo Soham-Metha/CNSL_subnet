@@ -25,3 +25,9 @@ unsigned char get_bit_cnt(unsigned char subnet_cnt)
         pow++;
     return pow;
 }
+
+void print_ip(IP ip)
+{
+    printf("%3hhu.%3hhu.%3hhu.%3hhu | ", ip.octet[3], ip.octet[2], ip.octet[1], ip.octet[0]);
+    printf("%b.%b.%b.%b", ip.octet[3], ip.octet[2], ip.octet[1], ip.octet[0]);
+}
