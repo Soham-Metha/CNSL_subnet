@@ -9,11 +9,12 @@ int main()
     IP_Class class = lookup(ip);
 
     if (cnt < 4) {
-        printf("WARN: Only read %d octet(s), defaulted remining octets to 0.\n", cnt);
+        printf("\nWARN: Only read %d octet(s), defaulted remining octets to 0.\n", cnt);
     }
-    printf("----------------------------------------");
-    printf("IP    |  %hhu.%hhu.%hhu.%hhu            ", ip.octet[0], ip.octet[1], ip.octet[2], ip.octet[3]);
-    printf("CLASS |  %s                             ", class.class_name);
+    printf("\n----------------------------------------");
+    printf("\nIP    |  %hhu.%hhu.%hhu.%hhu            ", ip.octet[0], ip.octet[1], ip.octet[2], ip.octet[3]);
+    printf("\nCLASS |  %s                             ", class.class_name);
+    printf("\n----------------------------------------\n\n");
 
     return 0;
 }
