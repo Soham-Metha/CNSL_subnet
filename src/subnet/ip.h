@@ -3,17 +3,17 @@
 #include <assert.h>
 
 #define SET_BIT(val, pos)             \
-    {                                 \
+    do {                              \
         assert(pos >= 0 && pos < 32); \
         val |= (1 << pos);            \
-    }
+    } while (0)
 
 #define SET_BITS(val, start, stop)            \
-    {                                         \
+    do {                                      \
         for (int i = start; i <= stop; i++) { \
             SET_BIT(val, i)                   \
         }                                     \
-    }
+    } while (0)
 
 typedef enum IP_classes {
     CLASS_A,
