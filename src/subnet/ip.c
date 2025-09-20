@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <string.h>
 #include <subnet/ip.h>
 
 static IP_Class IP_LUT[CLASS_CNT] = {
@@ -37,17 +38,19 @@ char* get_bits(unsigned char byte)
     return byte_str;
 }
 
-void print_ip(IP ip)
+const char* ip_to_str(IP ip)
 {
+    static char buf[50];
+    char* ptr = buf;
 
-    printf("%3hhu.%3hhu.%3hhu.%3hhu | ",
+    ptr += sprintf(ptr, "%3hhu.%3hhu.%3hhu.%3hhu | ",
         ip.octet[3], ip.octet[2], ip.octet[1], ip.octet[0]);
 
-    printf("%s.%s.%s.%s",
+    ptr += sprintf(ptr, "%s.%s.%s.%s",
         get_bits(ip.octet[3]),
         get_bits(ip.octet[2]),
         get_bits(ip.octet[1]),
         get_bits(ip.octet[0]));
 
-    printf("\n");
+    return buf;
 }
