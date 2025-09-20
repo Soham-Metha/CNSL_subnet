@@ -36,7 +36,7 @@ union IP {
 };
 
 struct IP_Class {
-    const char* class_name;
+    const char* name;
     unsigned char end_at;
     unsigned char nw_addr_lsb;
 };

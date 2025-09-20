@@ -43,7 +43,7 @@ int main()
     printf("\n┌────────────────────────────────────────────────────────────────────────┐");
     printf("\n│ IP           │  %-344s │", ip_to_str(ip, class.nw_addr_lsb, 0));
     printf("\n│ MASK         │  %-344s │", ip_to_str(mask, class.nw_addr_lsb, 0));
-    printf("\n│ CLASS        │  %-53s  │", class.class_name);
+    printf("\n│ CLASS        │  %-53s  │", class.name);
     printf("\n├────────────────────────────────────────────────────────────────────────┤");
     printf("\n│ SUBNET MASK  │  %-344s │", ip_to_str(sub_mask, class.nw_addr_lsb, bit_cnt));
     printf("\n│ SUBNET BITS  │  %-53d  │", bit_cnt);

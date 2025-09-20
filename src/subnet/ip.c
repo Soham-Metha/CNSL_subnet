@@ -3,11 +3,11 @@
 #include <subnet/ip.h>
 
 static IP_Class IP_LUT[CLASS_CNT] = {
-    [CLASS_A] = { .class_name = "CLASS A", .end_at = 127, .nw_addr_lsb = 24 },
-    [CLASS_B] = { .class_name = "CLASS B", .end_at = 191, .nw_addr_lsb = 16 },
-    [CLASS_C] = { .class_name = "CLASS C", .end_at = 223, .nw_addr_lsb = 8  },
-    [CLASS_D] = { .class_name = "CLASS D", .end_at = 239, .nw_addr_lsb = 0  },
-    [CLASS_E] = { .class_name = "CLASS E", .end_at = 255, .nw_addr_lsb = 0  },
+    [CLASS_A] = { .name = "CLASS A", .end_at = 127, .nw_addr_lsb = 24 },
+    [CLASS_B] = { .name = "CLASS B", .end_at = 191, .nw_addr_lsb = 16 },
+    [CLASS_C] = { .name = "CLASS C", .end_at = 223, .nw_addr_lsb = 8  },
+    [CLASS_D] = { .name = "CLASS D", .end_at = 239, .nw_addr_lsb = 0  },
+    [CLASS_E] = { .name = "CLASS E", .end_at = 255, .nw_addr_lsb = 0  },
 };
 
 IP_Class lookup(IP ip)
