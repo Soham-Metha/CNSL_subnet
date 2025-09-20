@@ -49,14 +49,14 @@ struct Subnet_Range {
 };
 
 struct IP {
-    IP_addr as;
+    IP_addr addr;
     IP_addr mask;
     IP_Class nw;
     Subnet_Info subnet;
     Subnet_Range range;
 };
 
-IP_Class lookup(IP *ip);
+IP_Class lookup(IP_addr ip);
 unsigned char get_bit_cnt(unsigned char subnet_cnt);
 const char* ip_to_str(IP_addr ip, unsigned char mask_start_at, unsigned char subnet_lsb);
 

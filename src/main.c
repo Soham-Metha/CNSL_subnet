@@ -7,12 +7,12 @@ int main()
     //===========================================================================================
     printf("Enter IP: ");
     IP ip           = { 0 };
-    int octets_read = scanf("%hhu.%hhu.%hhu.%hhu", &ip.as.octet[3], &ip.as.octet[2], &ip.as.octet[1], &ip.as.octet[0]);
+    int octets_read = scanf("%hhu.%hhu.%hhu.%hhu", &ip.addr.octet[3], &ip.addr.octet[2], &ip.addr.octet[1], &ip.addr.octet[0]);
     if (octets_read < 4) {
         printf("WARN: Only read %d octet(s), defaulted remining octet(s) to 0.\n", octets_read);
     }
 
-    ip.nw = lookup(ip.as);
+    ip.nw = lookup(ip.addr);
     SET_BITS(ip.mask.addr, ip.nw.lsb_pos, IP_ADDRESS_SIZE - 1);
 
     //===========================================================================================
@@ -28,15 +28,15 @@ int main()
     //===========================================================================================
     Subnet_Range range = {
         .size = 1 << ip.subnet.lsb_pos,
-        .strt = { .addr = ip.as.addr & ip.subnet.mask.addr },
-        .end  = { .addr = ip.as.addr & ip.subnet.mask.addr },
+        .strt = { .addr = ip.addr.addr & ip.subnet.mask.addr },
+        .end  = { .addr = ip.addr.addr & ip.subnet.mask.addr },
     };
 
     SET_BITS(range.end.addr, 0, ip.subnet.lsb_pos - 1);
 
     //===========================================================================================
     printf("\n┌────────────────────────────────────────────────────────────────────────┐");
-    printf("\n│ IP           │  %-91s │", ip_to_str(ip.as, ip.nw.lsb_pos, 0));
+    printf("\n│ IP           │  %-91s │", ip_to_str(ip.addr, ip.nw.lsb_pos, 0));
     printf("\n│ MASK         │  %-91s │", ip_to_str(ip.mask, ip.nw.lsb_pos, 0));
     printf("\n│ CLASS        │  %-54s │", ip.nw.class_name);
     printf("\n├────────────────────────────────────────────────────────────────────────┤");
