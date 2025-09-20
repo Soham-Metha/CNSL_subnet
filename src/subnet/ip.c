@@ -38,7 +38,7 @@ const char* ip_to_str(IP ip, unsigned char mask_start_at, unsigned char subnet_b
     for (int i = 3; i >= 0; i--) {
         int strt_bit = i * 8;
 
-        ptr += sprintf(ptr, "%3hhu\033[0m", ip.octet[i]);
+        ptr += sprintf(ptr, "%3hhu", ip.octet[i]);
 
         if (strt_bit == mask_start_at)
             ptr += sprintf(ptr, "\033[33m");
@@ -48,7 +48,7 @@ const char* ip_to_str(IP ip, unsigned char mask_start_at, unsigned char subnet_b
         if (i != 0)
             ptr += sprintf(ptr, ".");
     }
-    ptr += sprintf(ptr, " │ \033[32m");
+    ptr += sprintf(ptr, "\033[0m │ \033[32m");
 
     for (int i = 31; i >= 0; i--) {
 
