@@ -4,20 +4,18 @@
 
 IP_Class lookup(IP ip)
 {
-    switch (ip.octet[3]) {
-    case 1 ... 127:
+    if (ip.octet[3] <= 127)
         return (IP_Class) { .name = "CLASS A", .nw_addr_lsb = 24 };
-    case 128 ... 191:
+    if (ip.octet[3] <= 191)
         return (IP_Class) { .name = "CLASS B", .nw_addr_lsb = 16 };
-    case 192 ... 223:
+    if (ip.octet[3] <= 223)
         return (IP_Class) { .name = "CLASS C", .nw_addr_lsb = 8 };
-    case 224 ... 239:
+    if (ip.octet[3] <= 239)
         return (IP_Class) { .name = "CLASS D", .nw_addr_lsb = 0 };
-    case 240 ... 255:
+    if (ip.octet[3] <= 255)
         return (IP_Class) { .name = "CLASS E", .nw_addr_lsb = 0 };
-    default:
-        assert(0 && "INVALID IP ADDRESS!!!");
-    }
+
+    assert(0 && "INVALID IP ADDRESS!!!");
 }
 
 unsigned char get_bit_cnt(unsigned char subnet_cnt)
