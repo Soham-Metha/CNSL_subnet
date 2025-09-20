@@ -1,6 +1,7 @@
 #ifndef PROJ
 #define PROJ
 #include <assert.h>
+#include <inttypes.h>
 
 #define SET_BIT(val, pos)                 \
     do {                                  \
@@ -29,7 +30,7 @@ typedef union IP IP;
 
 union IP {
     unsigned char octet[4];
-    int as_int;
+    uint32_t as_int;
 };
 
 struct IP_Class {
