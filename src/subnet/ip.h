@@ -27,7 +27,7 @@ union IP {
 };
 
 struct IP_Class {
-    const char* name;
+    const char* class_name;
     unsigned char lsb;
 };
 

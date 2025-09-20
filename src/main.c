@@ -44,7 +44,7 @@ int main()
     printf("\n┌────────────────────────────────────────────────────────────────────────┐");
     printf("\n│ IP           │  %-91s │", ip_to_str(ip, nw_addr.lsb, 0));
     printf("\n│ MASK         │  %-91s │", ip_to_str(mask, nw_addr.lsb, 0));
-    printf("\n│ CLASS        │  %-54s │", nw_addr.name);
+    printf("\n│ CLASS        │  %-54s │", nw_addr.class_name);
     printf("\n├────────────────────────────────────────────────────────────────────────┤");
     printf("\n│ SUBNET MASK  │  %-91s │", ip_to_str(subnet_mask, nw_addr.lsb, subnet_bitcnt));
     printf("\n│ SUBNET BITS  │  %-54d │", subnet_bitcnt);

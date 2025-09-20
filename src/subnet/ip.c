@@ -5,15 +5,15 @@
 IP_Class lookup(IP ip)
 {
     if (ip.octet[3] <= 127)
-        return (IP_Class) { .name = "CLASS A", .lsb = 24 };
+        return (IP_Class) { .class_name = "CLASS A", .lsb = 24 };
     if (ip.octet[3] <= 191)
-        return (IP_Class) { .name = "CLASS B", .lsb = 16 };
+        return (IP_Class) { .class_name = "CLASS B", .lsb = 16 };
     if (ip.octet[3] <= 223)
-        return (IP_Class) { .name = "CLASS C", .lsb = 8 };
+        return (IP_Class) { .class_name = "CLASS C", .lsb = 8 };
     if (ip.octet[3] <= 239)
-        return (IP_Class) { .name = "CLASS D", .lsb = 0 };
+        return (IP_Class) { .class_name = "CLASS D", .lsb = 0 };
     else
-        return (IP_Class) { .name = "CLASS E", .lsb = 0 };
+        return (IP_Class) { .class_name = "CLASS E", .lsb = 0 };
 }
 
 unsigned char get_bit_cnt(unsigned char subnet_cnt)
