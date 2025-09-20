@@ -10,6 +10,7 @@ int main()
     IP subnet_end         = { 0 };
     IP_Class class        = { 0 };
     unsigned char sub_cnt = 0;
+    unsigned char bit_cnt = 0;
     int cnt               = 0;
 
     //===========================================================================================
@@ -25,8 +26,8 @@ int main()
     //===========================================================================================
     printf("Enter Subnet Count: ");
     cnt     = scanf("%hhu", &sub_cnt);
-    sub_cnt = get_bit_cnt(sub_cnt);
-    SET_BITS(sub_mask.as_int, class.mask_start_at - sub_cnt + 1, 31);
+    bit_cnt = get_bit_cnt(sub_cnt);
+    SET_BITS(sub_mask.as_int, class.mask_start_at - bit_cnt + 1, 31);
 
     if (cnt < 1) {
         printf("WARN: Subnet count not entered, defaulted to 0.\n");
@@ -35,7 +36,7 @@ int main()
     //===========================================================================================
     subnet_strt.as_int = ip.as_int & sub_mask.as_int;
     subnet_end.as_int  = ip.as_int & sub_mask.as_int;
-    SET_BITS(subnet_end.as_int, 0, class.mask_start_at - sub_cnt);
+    SET_BITS(subnet_end.as_int, 0, class.mask_start_at - bit_cnt);
     cnt = subnet_end.as_int - subnet_strt.as_int + 1;
 
     //===========================================================================================
