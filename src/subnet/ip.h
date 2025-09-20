@@ -15,7 +15,7 @@ typedef union IP IP;
 
 union IP {
     unsigned char octet[4];
-    int ip_as_int;
+    int as_int;
 };
 
 struct IP_Class {
