@@ -9,7 +9,7 @@ int main()
     IP_Class class = lookup(ip);
 
     if (cnt < 4) {
-        printf("WARN: Only read %d octet(s), defaulted remining octets to 0!\n", cnt);
+        printf("WARN: Only read %d octet(s), defaulted remining octets to 0.\n", cnt);
     }
 
     printf("%d %s\n", class.start_at, class.class_name);
