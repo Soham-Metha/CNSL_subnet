@@ -22,4 +22,6 @@ struct IP_Class {
     int start_at;
 };
 
+IP_Class lookup(IP ip);
+
 #endif
