@@ -1,6 +1,8 @@
 #ifndef PROJ
 #define PROJ
 
+#define SET_BIT(val, pos) val = val & 1 << pos;
+
 typedef enum IP_classes {
     CLASS_A,
     CLASS_B,
