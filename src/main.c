@@ -36,11 +36,12 @@ int main()
     first_subnet_strt.as_int = ip.as_int & sub_mask.as_int;
     first_subnet_end.as_int  = ip.as_int & sub_mask.as_int;
     SET_BITS(first_subnet_end.as_int, 0, class.mask_start_at - sub_cnt);
-    cnt = first_subnet_end.as_int - first_subnet_strt.as_int;
+    cnt = first_subnet_end.as_int - first_subnet_strt.as_int + 1;
 
     //===========================================================================================
     printf("\n----------------------------------------");
-    printf("\nIP    |  %3hhu.%3hhu.%3hhu.%3hhu        ", ip.octet[3], ip.octet[2], ip.octet[1], ip.octet[0]);
+    printf("\nIP    |  ");
+    print_ip(ip);
     printf("\nMASK  |  %3hhu.%3hhu.%3hhu.%3hhu        ", mask.octet[3], mask.octet[2], mask.octet[1], mask.octet[0]);
     printf("\nCLASS |  %s                             ", class.class_name);
     printf("\nSUBNET|  %3hhu.%3hhu.%3hhu.%3hhu        ", sub_mask.octet[3], sub_mask.octet[2], sub_mask.octet[1], sub_mask.octet[0]);
