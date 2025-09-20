@@ -23,7 +23,7 @@ unsigned char get_bit_cnt(unsigned char subnet_cnt)
     return pow - 1;
 }
 
-const char* ip_to_str(IP ip, unsigned char nw_addr_lsb, unsigned char subnet_bit_cnt)
+const char* ip_to_str(IP ip, unsigned char nw_addr_lsb, unsigned char subnet_lsb)
 {
     static char buf[345];
     char* ptr = buf;
@@ -37,7 +37,7 @@ const char* ip_to_str(IP ip, unsigned char nw_addr_lsb, unsigned char subnet_bit
 
         if ((8 * i) == nw_addr_lsb)
             ptr += sprintf(ptr, "\033[33m");
-        if ((8 * i) == nw_addr_lsb - subnet_bit_cnt)
+        if ((8 * i) == subnet_lsb)
             ptr += sprintf(ptr, "\033[31m");
     }
     ptr += sprintf(ptr, "\033[0m │ \033[32m");
@@ -50,7 +50,7 @@ const char* ip_to_str(IP ip, unsigned char nw_addr_lsb, unsigned char subnet_bit
 
         if (i == nw_addr_lsb)
             ptr += sprintf(ptr, "\033[33m");
-        if (i == nw_addr_lsb - subnet_bit_cnt)
+        if (i == subnet_lsb)
             ptr += sprintf(ptr, "\033[31m");
     }
     ptr += sprintf(ptr, "\033[0m ");
