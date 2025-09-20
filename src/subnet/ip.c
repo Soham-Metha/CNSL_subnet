@@ -36,31 +36,28 @@ const char* ip_to_str(IP ip, unsigned char mask_start_at, unsigned char subnet_b
 
     ptr += sprintf(ptr, "\033[32m");
     for (int i = 3; i >= 0; i--) {
-        int strt_bit = i * 8;
 
         ptr += sprintf(ptr, "%3hhu", ip.octet[i]);
-
-        if (strt_bit == mask_start_at)
-            ptr += sprintf(ptr, "\033[33m");
-        else if (strt_bit == mask_start_at - subnet_bit_cnt)
-            ptr += sprintf(ptr, "\033[31m");
-
         if (i != 0)
             ptr += sprintf(ptr, ".");
+
+        if ((8 * i) == mask_start_at)
+            ptr += sprintf(ptr, "\033[33m");
+        if ((8 * i) == mask_start_at - subnet_bit_cnt)
+            ptr += sprintf(ptr, "\033[31m");
     }
     ptr += sprintf(ptr, "\033[0m │ \033[32m");
 
     for (int i = 31; i >= 0; i--) {
 
-        ptr += sprintf(ptr, "%c", (ip.as_int & (1 << i)) ? '1' : '0');
+        ptr += sprintf(ptr, "%c", TEST_BIT(ip.as_int, i) ? '1' : '0');
+        if (i % 8 == 0 && i != 0)
+            ptr += sprintf(ptr, ".");
 
         if (i == mask_start_at)
             ptr += sprintf(ptr, "\033[33m");
         if (i == mask_start_at - subnet_bit_cnt)
             ptr += sprintf(ptr, "\033[31m");
-
-        if (i % 8 == 0 && i != 0)
-            ptr += sprintf(ptr, ".");
     }
     ptr += sprintf(ptr, "\033[0m ");
 
