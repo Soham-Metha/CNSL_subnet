@@ -21,6 +21,7 @@ SRC_DIR   := ./src
 MAIN_FILE := $(SRC_DIR)/main.c
 EXEC_FILE := $(BUILDS)/a
 SRC_FILES := $(filter-out $(MAIN_FILE), 	$(wildcard $(SRC_DIR)/*.c) )
+SRC_FILES += $(wildcard $(SRC_DIR)/*/*.c)
 
 $(eval $(call BUILD_RULE, $(EXEC_FILE), $(MAIN_FILE) $(SRC_FILES)))
 
