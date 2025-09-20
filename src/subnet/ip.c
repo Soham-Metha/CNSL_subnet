@@ -2,17 +2,17 @@
 #include <subnet/ip.h>
 
 static IP_Class IP_LUT[CLASS_CNT] = {
-    [CLASS_E] = { .class_name = "CLASS E", .end_at = 248 },
-    [CLASS_D] = { .class_name = "CLASS D", .end_at = 223 },
-    [CLASS_C] = { .class_name = "CLASS C", .end_at = 192 },
-    [CLASS_B] = { .class_name = "CLASS B", .end_at = 128 },
-    [CLASS_A] = { .class_name = "CLASS A", .end_at = 0   },
+    [CLASS_A] = { .class_name = "CLASS A", .end_at = 128 },
+    [CLASS_B] = { .class_name = "CLASS B", .end_at = 192 },
+    [CLASS_C] = { .class_name = "CLASS C", .end_at = 224 },
+    [CLASS_D] = { .class_name = "CLASS D", .end_at = 240 },
+    [CLASS_E] = { .class_name = "CLASS E", .end_at = 256 },
 };
 
 IP_Class lookup(IP ip)
 {
-    for (int i = CLASS_E; i > -1; i--) {
-        if (ip.octet[0] >= IP_LUT[i].end_at) {
+    for (int i = CLASS_A; i < CLASS_CNT; i++) {
+        if (ip.octet[0] < IP_LUT[i].end_at) {
             return IP_LUT[i];
         }
     }
