@@ -31,11 +31,25 @@ unsigned char get_bit_cnt(unsigned char subnet_cnt)
 
 const char* ip_to_str(IP ip, unsigned char mask_start_at, unsigned char subnet_bit_cnt)
 {
-    static char buf[128];
+    static char buf[345];
     char* ptr = buf;
 
-    ptr += sprintf(ptr, "%3hhu.%3hhu.%3hhu.%3hhu │ ",
-        ip.octet[3], ip.octet[2], ip.octet[1], ip.octet[0]);
+    for (int i = 3; i >= 0; i--) {
+        int strt_bit = i * 8;
+
+        if (strt_bit >= mask_start_at)
+            ptr += sprintf(ptr, "\033[32m");
+        else if (strt_bit >= mask_start_at - subnet_bit_cnt)
+            ptr += sprintf(ptr, "\033[33m");
+        else
+            ptr += sprintf(ptr, "\033[31m");
+
+        ptr += sprintf(ptr, "%3hhu\033[0m", ip.octet[i]);
+
+        if (i != 0)
+            ptr += sprintf(ptr, ".");
+    }
+    ptr += sprintf(ptr, " │ ");
 
     for (int i = 31; i >= 0; i--) {
         if (i >= mask_start_at)
@@ -50,6 +64,7 @@ const char* ip_to_str(IP ip, unsigned char mask_start_at, unsigned char subnet_b
         if (i % 8 == 0 && i != 0)
             ptr += sprintf(ptr, ".");
     }
+    ptr += sprintf(ptr, " ");
 
     return buf;
 }
