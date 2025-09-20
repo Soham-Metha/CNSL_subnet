@@ -56,8 +56,8 @@ struct IP {
     Subnet_Range range;
 };
 
-IP_Class lookup(IP_addr ip);
+IP_Class lookup(const IP* ip);
 unsigned char get_bit_cnt(unsigned char subnet_cnt);
-const char* ip_to_str(IP_addr ip, unsigned char mask_start_at, unsigned char subnet_lsb);
+const char* ip_to_str(const IP* ip, unsigned char mask_start_at, unsigned char subnet_lsb);
 
 #endif
