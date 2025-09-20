@@ -2,7 +2,7 @@
 #include <string.h>
 #include <subnet/ip.h>
 
-IP_Class lookup(IP ip)
+IP_Class lookup(IP_addr ip)
 {
     if (ip.octet[3] <= 127)
         return (IP_Class) { .class_name = "CLASS A", .lsb_pos = 24 };
@@ -23,7 +23,7 @@ unsigned char get_bit_cnt(unsigned char subnet_cnt)
     return pow - 1;
 }
 
-const char* ip_to_str(IP ip, unsigned char nw_addr_lsb, unsigned char subnet_lsb)
+const char* ip_to_str(IP_addr ip, unsigned char nw_addr_lsb, unsigned char subnet_lsb)
 {
     static char buf[345];
     char* ptr = buf;

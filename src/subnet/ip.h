@@ -3,6 +3,7 @@
 #include <assert.h>
 #include <inttypes.h>
 
+#define IP_ADDRESS_SIZE 32
 #define TEST_BIT(val, pos) (val) & (1 << (pos))
 
 #define SET_BIT(val, pos)                 \
@@ -18,10 +19,13 @@
         }                                         \
     } while (0)
 
+typedef struct Subnet_Range Subnet_Range;
+typedef struct Subnet_Info Subnet_Info;
 typedef struct IP_Class IP_Class;
-typedef union IP IP;
+typedef struct IP IP;
+typedef union IP_addr IP_addr;
 
-union IP {
+union IP_addr {
     unsigned char octet[4];
     uint32_t addr;
 };
@@ -31,8 +35,29 @@ struct IP_Class {
     unsigned char lsb_pos;
 };
 
-IP_Class lookup(IP ip);
+struct Subnet_Info {
+    unsigned char cnt;
+    unsigned char bit_cnt;
+    unsigned char lsb_pos;
+    IP_addr mask;
+};
+
+struct Subnet_Range {
+    unsigned int size;
+    IP_addr strt;
+    IP_addr end;
+};
+
+struct IP {
+    IP_addr as;
+    IP_addr mask;
+    IP_Class nw;
+    Subnet_Info subnet;
+    Subnet_Range range;
+};
+
+IP_Class lookup(IP_addr ip);
 unsigned char get_bit_cnt(unsigned char subnet_cnt);
-const char* ip_to_str(IP ip, unsigned char mask_start_at, unsigned char subnet_lsb);
+const char* ip_to_str(IP_addr ip, unsigned char mask_start_at, unsigned char subnet_lsb);
 
 #endif
