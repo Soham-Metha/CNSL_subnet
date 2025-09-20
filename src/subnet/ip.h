@@ -5,7 +5,7 @@
 #define SET_BIT(val, pos)             \
     {                                 \
         assert(pos >= 0 && pos < 32); \
-        val = val | (1 << pos);       \
+        val |= (1 << pos);            \
     }
 
 #define SET_BITS(val, start, stop)            \
