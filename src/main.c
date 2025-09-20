@@ -9,8 +9,11 @@ int main()
         printf("Enter IP: ");
         int octets_read = scanf("%hhu.%hhu.%hhu.%hhu",
             &ip.addr.octet[3], &ip.addr.octet[2], &ip.addr.octet[1], &ip.addr.octet[0]);
-        if (octets_read < 4) {
-            printf("WARN: Only read %d octet(s), defaulted remining octet(s) to 0.\n", octets_read);
+        if (octets_read < 1)   ip.addr.octet[3] = 192;
+        if (octets_read < 2)   ip.addr.octet[2] = 168;
+        if (octets_read < 3)   ip.addr.octet[1] = 4;
+        if (octets_read < 4) { ip.addr.octet[0] = 1;
+            printf("WARN: Only read %d octet(s), defaulted remining octet(s) to <192>.<168>.<4>.<1>\n", octets_read);
         }
     }
 
@@ -21,7 +24,7 @@ int main()
 
     {     // Read Subnet Count
         printf("Enter Subnet Count: ");
-        if (scanf("%hhu", &ip.subnet.cnt) < 1) {
+        if (scanf("%u", &ip.subnet.cnt) < 1) {
             printf("WARN: Subnet count not entered, defaulted to 0.\n");
         }
     }
@@ -48,29 +51,40 @@ int main()
         printf("\n│ IP           │  %-54s │", ip_to_str(ip.addr, ip.nw.lsb_pos, ip.nw.lsb_pos));
         printf("\n│ MASK         │  %-54s │", ip_to_str(ip.mask, ip.nw.lsb_pos, ip.nw.lsb_pos));
         printf("\n│ CLASS        │  %-54s │", ip.nw.class_name);
+        printf("\n│ SUBNETS REQ  │  %-54d │", ip.subnet.cnt);
         printf("\n│              │  %-54s │", "");
         printf("\n├────────────────────────────────────────────────────────────────────────┤");
         printf("\n│              │  %-54s │", "");
         printf("\n│ SUBNET MASK  │  %-54s │", ip_to_str(ip.subnet.mask, ip.nw.lsb_pos, ip.subnet.lsb_pos));
         printf("\n│ SUBNET BITS  │  %-54d │", ip.subnet.bit_cnt);
         printf("\n│ RANGE        │  %-54d │", range.size);
+        printf("\n│ USABLE       │  %-54d │", (range.size > 2) ? range.size - 2 : 0);
         printf("\n│              │  %-54s │", "");
         printf("\n└────────────────────────────────────────────────────────────────────────┘\n");
     }
+
+    printf("\n┌────────────────────────────────────────────────────────────────────────┐");
+    printf("\n│              │  %-54s │", "");
+    printf("\n│ IP           │  %-54s │", ip_to_str(ip.addr, ip.nw.lsb_pos, ip.subnet.lsb_pos));
+    printf("\n│ SUBNET START │  %-54s │", ip_to_str(range.strt, ip.nw.lsb_pos, ip.subnet.lsb_pos));
+    printf("\n│ SUBNET END   │  %-54s │", ip_to_str(range.end, ip.nw.lsb_pos, ip.subnet.lsb_pos));
+    printf("\n│              │  %-54s │", "");
+    printf("\n└────────────────────────────────────────────────────────────────────────┘\n");
 
     //===========================================================================================
 
-    for (int i = 1; i <= ip.subnet.cnt; i++) {     // print all subnet ranges
-        printf("\n┌────────────────────────────────────────────────────────────────────────┐");
-        printf("\n│              │  %-54s │", "");
-        printf("\n│ SUBNET NO.   │  %-54d │", i);
-        printf("\n│ SUBNET START │  %-54s │", ip_to_str(range.strt, ip.nw.lsb_pos, ip.subnet.lsb_pos));
-        printf("\n│ SUBNET END   │  %-54s │", ip_to_str(range.end, ip.nw.lsb_pos, ip.subnet.lsb_pos));
-        printf("\n│              │  %-54s │", "");
-        printf("\n└────────────────────────────────────────────────────────────────────────┘\n");
-        range.strt.addr += range.size;
-        range.end.addr += range.size;
-    }
+    // for (int i = 1; i <= ip.subnet.cnt; i++) {     // print all subnet ranges
+    //     printf("\n┌────────────────────────────────────────────────────────────────────────┐");
+    //     printf("\n│              │  %-54s │", "");
+    //     printf("\n│ SUBNET NO.   │  %-54d │", i);
+    //     printf("\n│ SUBNET START │  %-54s │", ip_to_str(range.strt, ip.nw.lsb_pos, ip.subnet.lsb_pos));
+    //     printf("\n│ SUBNET END   │  %-54s │", ip_to_str(range.end, ip.nw.lsb_pos, ip.subnet.lsb_pos));
+    //     printf("\n│              │  %-54s │", "");
+    //     printf("\n└────────────────────────────────────────────────────────────────────────┘\n");
+    //     range.strt.addr += range.size;
+    //     range.end.addr += range.size;
+    //     // !BEFORE PRINTING, ensure that you apply the default mask instead of subnet mask!
+    // }
 
     return 0;
 }
@@ -107,4 +121,6 @@ int main()
  * Subnet is identified by the subnet bits,
  *     000 => SUBNET 1,  001 => SUBNET 2,  010 => SUBNET 3, ... 110 => SUBNET 7,  111 => SUBNET 8
  * Although the 8th subnet is created, it's not needed, hence wasted.
+ * 
+ * If we apply the subnet mask to any IP, we get it's nw & subnet address.
  */
