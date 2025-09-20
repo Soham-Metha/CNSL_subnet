@@ -13,23 +13,23 @@ int main()
     int cnt               = 0;
 
     //===========================================================================================
-    printf("Enter IP:");
+    printf("Enter IP: ");
     cnt   = scanf("%hhu.%hhu.%hhu.%hhu", &ip.octet[3], &ip.octet[2], &ip.octet[1], &ip.octet[0]);
     class = lookup(ip);
     SET_BITS(mask.as_int, class.mask_start_at, 31);
 
     if (cnt < 4) {
-        printf("\nWARN: Only read %d octet(s), defaulted remining octets to 0.\n", cnt);
+        printf("WARN: Only read %d octet(s), defaulted remining octets to 0.\n", cnt);
     }
 
     //===========================================================================================
-    printf("Enter Subnet Count:");
+    printf("Enter Subnet Count: ");
     cnt     = scanf("%hhu", &sub_cnt);
     sub_cnt = get_bit_cnt(sub_cnt);
     SET_BITS(sub_mask.as_int, class.mask_start_at - sub_cnt, 31);
 
     if (cnt < 1) {
-        printf("\nWARN: Subnet count not entered, defaulted to 0.\n");
+        printf("WARN: Subnet count not entered, defaulted to 0.\n");
     }
 
     //===========================================================================================
