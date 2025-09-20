@@ -2,15 +2,15 @@
 #include <string.h>
 #include <subnet/ip.h>
 
-IP_Class lookup(IP_addr ip)
+IP_Class lookup(const IP* ip)
 {
-    if (ip.octet[3] <= 127)
+    if (ip->as.octet[3] <= 127)
         return (IP_Class) { .class_name = "CLASS A", .lsb_pos = 24 };
-    if (ip.octet[3] <= 191)
+    if (ip->as.octet[3] <= 191)
         return (IP_Class) { .class_name = "CLASS B", .lsb_pos = 16 };
-    if (ip.octet[3] <= 223)
+    if (ip->as.octet[3] <= 223)
         return (IP_Class) { .class_name = "CLASS C", .lsb_pos = 8 };
-    if (ip.octet[3] <= 239)
+    if (ip->as.octet[3] <= 239)
         return (IP_Class) { .class_name = "CLASS D", .lsb_pos = 0 };
     else
         return (IP_Class) { .class_name = "CLASS E", .lsb_pos = 0 };
@@ -23,7 +23,7 @@ unsigned char get_bit_cnt(unsigned char subnet_cnt)
     return pow - 1;
 }
 
-const char* ip_to_str(IP_addr ip, unsigned char nw_addr_lsb, unsigned char subnet_lsb)
+const char* ip_to_str(const IP* ip, unsigned char nw_addr_lsb, unsigned char subnet_lsb)
 {
     static char buf[345];
     char* ptr = buf;
@@ -31,7 +31,7 @@ const char* ip_to_str(IP_addr ip, unsigned char nw_addr_lsb, unsigned char subne
     ptr += sprintf(ptr, "\033[32m");
     for (int i = 3; i >= 0; i--) {
 
-        ptr += sprintf(ptr, "%3hhu", ip.octet[i]);
+        ptr += sprintf(ptr, "%3hhu", ip->as.octet[i]);
         if (i != 0)
             ptr += sprintf(ptr, ".");
 
@@ -44,7 +44,7 @@ const char* ip_to_str(IP_addr ip, unsigned char nw_addr_lsb, unsigned char subne
 
     for (int i = 31; i >= 0; i--) {
 
-        ptr += sprintf(ptr, "%c", TEST_BIT(ip.addr, i) ? '1' : '0');
+        ptr += sprintf(ptr, "%c", TEST_BIT(ip->as.addr, i) ? '1' : '0');
         if (i % 8 == 0 && i != 0)
             ptr += sprintf(ptr, ".");
 
