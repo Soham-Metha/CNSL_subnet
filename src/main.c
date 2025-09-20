@@ -19,6 +19,6 @@ int main()
     printf("\nMASK  |  %hhu.%hhu.%hhu.%hhu            ", mask.octet[0], mask.octet[1], mask.octet[2], mask.octet[3]);
     printf("\nCLASS |  %s                             ", class.class_name);
     printf("\n----------------------------------------\n\n");
-
+    printf("%d\n", mask.as_int);
     return 0;
 }
