@@ -5,7 +5,8 @@
 #include <stdio.h>
 
 #define IP_ADDRESS_SIZE 32
-#define TEST_BIT(val, pos) (val) & (1 << (pos))
+
+#define TEST_BIT(val, pos) ((val) & (1 << (pos)))
 
 #define SET_BIT(val, pos)                 \
     do {                                  \
@@ -20,44 +21,44 @@
         }                                         \
     } while (0)
 
+typedef union  IP_addr      IP_addr;
 typedef struct Subnet_Range Subnet_Range;
-typedef struct Subnet_Info Subnet_Info;
-typedef struct IP_Class IP_Class;
-typedef struct IP IP;
-typedef union IP_addr IP_addr;
+typedef struct Subnet  Subnet;
+typedef struct IP_Class     IP_Class;
+typedef struct IP           IP;
 
 union IP_addr {
-    unsigned char octet[4];
+    uint8_t  octet[4];
     uint32_t addr;
 };
 
 struct IP_Class {
     const char* class_name;
-    unsigned char lsb_pos;
+    uint8_t     lsb_pos;
 };
 
-struct Subnet_Info {
-    unsigned char cnt;
-    unsigned char bit_cnt;
-    unsigned char lsb_pos;
+struct Subnet {
     IP_addr mask;
+    uint8_t cnt;
+    uint8_t bit_cnt;
+    uint8_t lsb_pos;
 };
 
 struct Subnet_Range {
-    unsigned int size;
-    IP_addr strt;
-    IP_addr end;
+    IP_addr  strt;
+    IP_addr  end;
+    uint32_t size;
 };
 
 struct IP {
-    IP_addr addr;
-    IP_addr mask;
+    IP_addr  addr;
+    IP_addr  mask;
     IP_Class nw;
-    Subnet_Info subnet;
+    Subnet   subnet;
 };
 
 IP_Class lookup(IP_addr ip);
-unsigned char get_bit_cnt(unsigned char subnet_cnt);
-const char* ip_to_str(IP_addr ip, unsigned char mask_start_at, unsigned char subnet_lsb);
+uint8_t get_bit_cnt(uint8_t subnet_cnt);
+const char* ip_to_str(IP_addr ip, uint8_t mask_start_at, uint8_t subnet_lsb);
 
 #endif

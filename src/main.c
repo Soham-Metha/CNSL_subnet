@@ -44,44 +44,48 @@ int main()
     //===========================================================================================
     {     // print the details
         printf("\n┌────────────────────────────────────────────────────────────────────────┐");
-        printf("\n│ IP           │  %-91s │", ip_to_str(ip.addr, ip.nw.lsb_pos, 0));
-        printf("\n│ MASK         │  %-91s │", ip_to_str(ip.mask, ip.nw.lsb_pos, 0));
+        printf("\n│              │  %-54s │", "");
+        printf("\n│ IP           │  %-54s │", ip_to_str(ip.addr, ip.nw.lsb_pos, ip.nw.lsb_pos));
+        printf("\n│ MASK         │  %-54s │", ip_to_str(ip.mask, ip.nw.lsb_pos, ip.nw.lsb_pos));
         printf("\n│ CLASS        │  %-54s │", ip.nw.class_name);
+        printf("\n│              │  %-54s │", "");
         printf("\n├────────────────────────────────────────────────────────────────────────┤");
-        printf("\n│ SUBNET MASK  │  %-91s │", ip_to_str(ip.subnet.mask, ip.nw.lsb_pos, ip.subnet.lsb_pos));
+        printf("\n│              │  %-54s │", "");
+        printf("\n│ SUBNET MASK  │  %-54s │", ip_to_str(ip.subnet.mask, ip.nw.lsb_pos, ip.subnet.lsb_pos));
         printf("\n│ SUBNET BITS  │  %-54d │", ip.subnet.bit_cnt);
         printf("\n│ RANGE        │  %-54d │", range.size);
+        printf("\n│              │  %-54s │", "");
         printf("\n└────────────────────────────────────────────────────────────────────────┘\n");
     }
 
     //===========================================================================================
-    {     // print all subnet ranges
+
+    for (int i = 1; i <= ip.subnet.cnt; i++) {     // print all subnet ranges
         printf("\n┌────────────────────────────────────────────────────────────────────────┐");
-        for (int i = 1; i <= ip.subnet.cnt; i++) {
-            printf("\n│              │  %-54s │", "");
-            printf("\n│ SUBNET NO.   │  %-54d │", i);
-            printf("\n│ SUBNET START │  %-91s │", ip_to_str(range.strt, ip.nw.lsb_pos, ip.subnet.lsb_pos));
-            printf("\n│ SUBNET END   │  %-91s │", ip_to_str(range.end, ip.nw.lsb_pos, ip.subnet.lsb_pos));
-            range.strt.addr += range.size;
-            range.end.addr += range.size;
-        }
         printf("\n│              │  %-54s │", "");
-        printf("\n└────────────────────────────────────────────────────────────────────────┘\n\n");
+        printf("\n│ SUBNET NO.   │  %-54d │", i);
+        printf("\n│ SUBNET START │  %-54s │", ip_to_str(range.strt, ip.nw.lsb_pos, ip.subnet.lsb_pos));
+        printf("\n│ SUBNET END   │  %-54s │", ip_to_str(range.end, ip.nw.lsb_pos, ip.subnet.lsb_pos));
+        printf("\n│              │  %-54s │", "");
+        printf("\n└────────────────────────────────────────────────────────────────────────┘\n");
+        range.strt.addr += range.size;
+        range.end.addr += range.size;
     }
+
     return 0;
 }
 
 /*
  * Assume IP Addr '192.168.4.1' & 7 subnets needed
- *     ip.addr.octet[3]         ip.addr.octet[2]         ip.addr.octet[1]         ip.addr.octet[0]
- *  31 30 29 28 27 26 25 24  23 22 21 20 19 18 17 16  15 14 13 12 11 10  9  8   7  6  5  4  3  2  1  0
- * [##_##_##_##_##_##_##_##  ##_##_##_##_##_##_##_##  ##_##_##_##_##_##_##_##  ##_##_##_##_##_##_##_## ]
- *   ^~~~~                                                              ~~~~^   ^     ^~~~
- *   IP_ADDRESS_SIZE-1                                          ip.nw.lsb_pos   ^     ip.subnet.lsb_pos
- *   ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++   +++++++
- * 							      ip.mask		         	                    ip.subnet.bit_cnt
- *   ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++  +++++++++++++
- *                                                 ip.subnet.mask                         host addr (not needed)
+ *     ip.addr.octet[3]     |    ip.addr.octet[2]     |    ip.addr.octet[1]     |    ip.addr.octet[0]
+ *  31 30 29 28 27 26 25 24 | 23 22 21 20 19 18 17 16 | 15 14 13 12 11 10  9  8 |  7  6  5  4  3  2  1  0
+ * [##_##_##_##_##_##_##_## | ##_##_##_##_##_##_##_## | ##_##_##_##_##_##_##_## | ##_##_##_##_##_##_##_## ]
+ *   ^~~~~                                                                ~~~~^    ^     ^~~~
+ *   IP_ADDRESS_SIZE-1                                            ip.nw.lsb_pos    ^     ip.subnet.lsb_pos
+ *   ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++    +++++++
+ * 							      ip.mask		         	                       ip.subnet.bit_cnt
+ *   +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++  +++++++++++++
+ *                                                 ip.subnet.mask                           host addr (not needed)
  *
  * Bit position ranges :
  * Host addr    = bit 0                   to (<ip.subnet.lsb_pos> - 1)

@@ -14,44 +14,42 @@ IP_Class lookup(IP_addr ip)
         return (IP_Class) { .class_name = "CLASS E", .lsb_pos = 0 };
 }
 
-unsigned char get_bit_cnt(unsigned char subnet_cnt)
+uint8_t get_bit_cnt(uint8_t subnet_cnt)
 {
-    unsigned char pow = 0;
+    uint8_t pow = 0;
     while ((1 << pow++) < subnet_cnt) { }
     return pow - 1;
 }
 
-const char* ip_to_str(IP_addr ip, unsigned char nw_addr_lsb, unsigned char subnet_lsb)
+const char* ip_to_str(IP_addr ip, uint8_t nw_addr_lsb, uint8_t subnet_lsb)
 {
     static char buf[345];
     char* ptr = buf;
 
-    ptr += sprintf(ptr, "\033[32m");
-    for (int i = 3; i >= 0; i--) {
+    {     // Decimal notation
+        ptr += sprintf(ptr, "\033[32m"); // Color for the nw addr
+        for (int8_t i = 3; i >= 0; i--) {
 
-        ptr += sprintf(ptr, "%3hhu", ip.octet[i]);
-        if (i != 0)
-            ptr += sprintf(ptr, ".");
+            ptr += sprintf(ptr, "%3hhu", ip.octet[i]);
+            if (i != 0) ptr += sprintf(ptr, ".");
 
-        if ((8 * i) == nw_addr_lsb)
-            ptr += sprintf(ptr, "\033[33m");
-        if ((8 * i) == subnet_lsb)
-            ptr += sprintf(ptr, "\033[31m");
+            if ((8 * i) == nw_addr_lsb) ptr += sprintf(ptr, "\033[34m"); // if current bit is lsb of nw addr, next bit is the start of subnet addr
+            if ((8 * i) == subnet_lsb)  ptr += sprintf(ptr, "\033[31m"); // if current bit is lsb of subnet addr, next bit is the start of host addr
+        }
+        ptr += sprintf(ptr, "\033[0m │ ");
     }
-    ptr += sprintf(ptr, "\033[0m │ \033[32m");
 
-    for (int i = 31; i >= 0; i--) {
+    {     // binary notation
+        ptr += sprintf(ptr, "\033[32m"); // Color for the nw addr
+        for (int8_t i = 31; i >= 0; i--) {
 
-        ptr += sprintf(ptr, "%c", TEST_BIT(ip.addr, i) ? '1' : '0');
-        if (i % 8 == 0 && i != 0)
-            ptr += sprintf(ptr, ".");
+            ptr += sprintf(ptr, "%c", TEST_BIT(ip.addr, i) ? '1' : '0');
+            if (i % 8 == 0 && i != 0)  ptr += sprintf(ptr, ".");
 
-        if (i == nw_addr_lsb)
-            ptr += sprintf(ptr, "\033[33m");
-        if (i == subnet_lsb)
-            ptr += sprintf(ptr, "\033[31m");
+            if (i == nw_addr_lsb) ptr += sprintf(ptr, "\033[34m"); // if current bit is lsb of nw addr, next bit is the start of subnet addr
+            if (i == subnet_lsb)  ptr += sprintf(ptr, "\033[31m"); // if current bit is lsb of subnet addr, next bit is the start of host addr
+        }
+        ptr += sprintf(ptr, "\033[0m ");
     }
-    ptr += sprintf(ptr, "\033[0m ");
-
     return buf;
 }
