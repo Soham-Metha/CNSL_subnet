@@ -38,18 +38,30 @@ char* get_bits(unsigned char byte)
     return byte_str;
 }
 
-const char* ip_to_str(IP ip)
+const char* ip_to_str(IP ip, IP mask)
 {
-    static char buf[54];
+    static char buf[128];
     char* ptr = buf;
 
     ptr += sprintf(ptr, "%3hhu.%3hhu.%3hhu.%3hhu │ ",
         ip.octet[3], ip.octet[2], ip.octet[1], ip.octet[0]);
 
-    ptr += sprintf(ptr, "%s.", get_bits(ip.octet[3]));
-    ptr += sprintf(ptr, "%s.", get_bits(ip.octet[2]));
-    ptr += sprintf(ptr, "%s.", get_bits(ip.octet[1]));
-    ptr += sprintf(ptr, "%s ", get_bits(ip.octet[0]));
+    for (int i = 3; i >= 0; i--) {
+        unsigned char oct = ip.octet[i];
+        unsigned char msk = mask.octet[i];
+
+        for (int bit = 7; bit >= 0; bit--) {
+            if (msk & (1 << bit)) {
+                ptr += sprintf(ptr, "\033[32m%c\033[0m", (oct & (1 << bit)) ? '1' : '0');
+            } else {
+                ptr += sprintf(ptr, "\033[31m%c\033[0m", (oct & (1 << bit)) ? '1' : '0');
+            }
+        }
+        if (i > 0)
+            ptr += sprintf(ptr, ".");
+        else
+            ptr += sprintf(ptr, " ");
+    }
 
     return buf;
 }
