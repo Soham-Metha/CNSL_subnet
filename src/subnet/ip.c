@@ -9,11 +9,11 @@ static IP_Class IP_LUT[CLASS_CNT] = {
     [CLASS_A] = { .class_name = "CLASS A", .start_at = 0   },
 };
 
-IP_classes lookup(IP ip)
+IP_Class lookup(IP ip)
 {
     for (int i = CLASS_E; i > -1; i--) {
         if (ip.octet[0] >= IP_LUT[i].start_at) {
-            return i;
+            return IP_LUT[i];
         }
     }
 }
