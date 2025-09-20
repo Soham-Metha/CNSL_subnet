@@ -39,14 +39,18 @@ int main()
     cnt = first_subnet_end.as_int - first_subnet_strt.as_int + 1;
 
     //===========================================================================================
-    printf("\n----------------------------------------");
-    printf("\nIP    |  "); print_ip(ip);
-    printf("\nCLASS |  %s", class.class_name);
-    printf("\nMASK  |  "); print_ip(mask);
-    printf("\nSUBNET|  "); print_ip(sub_mask);
-    printf("\nSTRT  |  "); print_ip(first_subnet_strt);
-    printf("\nEND   |  "); print_ip(first_subnet_end);
-    printf("\nRANGE |  %d", cnt);
-    printf("\n----------------------------------------\n\n");
+	printf("\n========================================");
+	printf("\n| %-7s | %-20s | %-35s |", "Field", "Decimal", "Binary");
+	printf("\n----------------------------------------");
+	printf("\n| %-7s | ",   "IP");        print_ip(ip);
+	printf("\n| %-7s | %s", "CLASS", class.class_name);
+	printf("\n| %-7s | ",   "MASK");      print_ip(mask);
+	printf("\n| %-7s | ",   "SUBNET");    print_ip(sub_mask);
+	printf("\n| %-7s | ",   "STRT");      print_ip(first_subnet_strt);
+	printf("\n| %-7s | ",   "END");       print_ip(first_subnet_end);
+	printf("\n| %-7s | %-20d |", "RANGE", cnt);
+	
+	printf("\n========================================\n");
+	
     return 0;
 }
