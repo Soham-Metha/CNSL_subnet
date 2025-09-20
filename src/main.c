@@ -41,12 +41,12 @@ int main()
     //===========================================================================================
     printf("\n----------------------------------------");
     printf("\nIP    |  "); print_ip(ip);
-    printf("\nCLASS | %s", class.class_name);
+    printf("\nCLASS |  %s", class.class_name);
     printf("\nMASK  |  "); print_ip(mask);
     printf("\nSUBNET|  "); print_ip(sub_mask);
     printf("\nSTRT  |  "); print_ip(first_subnet_strt);
     printf("\nEND   |  "); print_ip(first_subnet_end);
-    printf("\nRANGE | %d", cnt);
+    printf("\nRANGE |  %d", cnt);
     printf("\n----------------------------------------\n\n");
     return 0;
 }
