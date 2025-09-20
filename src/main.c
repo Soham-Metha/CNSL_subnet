@@ -51,15 +51,14 @@ int main()
 
     //===========================================================================================
     printf("\n┌────────────────────────────────────────────────────────────────────────┐");
-	printf("\n│              │  %-54s │", "");
-    while (sub_cnt) {
+    for (int i = 1; i <= sub_cnt; i++) {
+        printf("\n│ SUBNET NO.   │  %-54d │", i);
         printf("\n│ SUBNET START │  %-54s │", ip_to_str(subnet_strt));
         printf("\n│ SUBNET END   │  %-54s │", ip_to_str(subnet_end));
-        printf("\n│              │  %-54s │", "");
         subnet_strt.as_int += cnt;
         subnet_end.as_int += cnt;
-        sub_cnt -= 1;
     }
+    printf("\n│              │  %-54s │", "");
     printf("\n└────────────────────────────────────────────────────────────────────────┘\n\n");
     return 0;
 }
