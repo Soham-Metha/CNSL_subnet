@@ -1,5 +1,6 @@
 #ifndef PROJ
 #define PROJ
+#include <assert.h>
 
 #define SET_BIT(val, pos)             \
     {                                 \
