@@ -27,8 +27,20 @@ unsigned char get_bit_cnt(unsigned char subnet_cnt)
     return pow;
 }
 
+char* get_bits(unsigned char byte)
+{
+    char byte_str[8] = "00000000";
+    for (int i = 7; i >= 0; i--) {
+        byte_str[8 - i] = (byte & (1 << i)) ? '1' : '0';
+    }
+    return byte_str;
+}
+
 void print_ip(IP ip)
 {
     printf("%3hhu.%3hhu.%3hhu.%3hhu | ", ip.octet[3], ip.octet[2], ip.octet[1], ip.octet[0]);
-    printf("%b.%b.%b.%b", ip.octet[3], ip.octet[2], ip.octet[1], ip.octet[0]);
+    printf("%s.", get_bits(ip.octet[3]));
+    printf("%s.", get_bits(ip.octet[2]));
+    printf("%s.", get_bits(ip.octet[1]));
+    printf("%s", get_bits(ip.octet[0]));
 }
