@@ -3,10 +3,12 @@
 #include <assert.h>
 #include <inttypes.h>
 
+#define TEST_BIT(val, pos) (val) & (1 << (pos))
+
 #define SET_BIT(val, pos)                 \
     do {                                  \
         assert((pos) >= 0 && (pos) < 32); \
-        (val) |= (1U << (pos));           \
+        (val) |= (1 << (pos));            \
     } while (0)
 
 #define SET_BITS(val, start, stop)                \
