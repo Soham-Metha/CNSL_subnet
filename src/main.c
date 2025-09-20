@@ -3,12 +3,12 @@
 
 int main()
 {
-    IP ip          = { 0 };
-    IP mask        = { 0 };
-    IP sub_mask    = { 0 };
-    IP_Class class = { 0 };
-    int sub_cnt    = 0;
-    int cnt        = 0;
+    IP ip                 = { 0 };
+    IP mask               = { 0 };
+    IP sub_mask           = { 0 };
+    IP_Class class        = { 0 };
+    unsigned char sub_cnt = 0;
+    int cnt               = 0;
 
     printf("Enter IP:");
     cnt   = scanf("%hhu.%hhu.%hhu.%hhu", &ip.octet[3], &ip.octet[2], &ip.octet[1], &ip.octet[0]);
