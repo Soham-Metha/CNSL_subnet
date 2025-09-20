@@ -20,7 +20,7 @@ union IP {
 
 struct IP_Class {
     const char* class_name;
-    unsigned char start_at;
+    unsigned char end_at;
 };
 
 IP_Class lookup(IP ip);
