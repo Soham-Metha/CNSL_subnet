@@ -22,8 +22,9 @@ IP_Class lookup(IP ip)
 unsigned char get_bit_cnt(unsigned char subnet_cnt)
 {
     unsigned char pow = 0;
-    while ((1 << pow) <= subnet_cnt)
+    while (!((1 << pow) >= subnet_cnt)) {
         pow++;
+    }
     return pow;
 }
 
