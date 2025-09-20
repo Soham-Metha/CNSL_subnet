@@ -43,10 +43,10 @@ int main()
     //===========================================================================================
     printf("\n┌────────────────────────────────────────────────────────────────────────┐");
     printf("\n│ IP           │  %-91s │", ip_to_str(ip, class.nw_addr_lsb, 0));
-    printf("\n│ MASK         │  %-344s │", ip_to_str(mask, class.nw_addr_lsb, 0));
+    printf("\n│ MASK         │  %-91s │", ip_to_str(mask, class.nw_addr_lsb, 0));
     printf("\n│ CLASS        │  %-53s  │", class.name);
     printf("\n├────────────────────────────────────────────────────────────────────────┤");
-    printf("\n│ SUBNET MASK  │  %-344s │", ip_to_str(subnet_mask, class.nw_addr_lsb, subnet_bitcnt));
+    printf("\n│ SUBNET MASK  │  %-91s │", ip_to_str(subnet_mask, class.nw_addr_lsb, subnet_bitcnt));
     printf("\n│ SUBNET BITS  │  %-53d  │", subnet_bitcnt);
     printf("\n│ RANGE        │  %-53d  │", range);
     printf("\n└────────────────────────────────────────────────────────────────────────┘\n");
@@ -56,8 +56,8 @@ int main()
     for (int i = 1; i <= subnet_cnt; i++) {
         printf("\n│              │  %-53s  │", "");
         printf("\n│ SUBNET NO.   │  %-53d  │", i);
-        printf("\n│ SUBNET START │  %-344s │", ip_to_str(subnet_strt, class.nw_addr_lsb, subnet_bitcnt));
-        printf("\n│ SUBNET END   │  %-344s │", ip_to_str(subnet_end, class.nw_addr_lsb, subnet_bitcnt));
+        printf("\n│ SUBNET START │  %-91s │", ip_to_str(subnet_strt, class.nw_addr_lsb, subnet_bitcnt));
+        printf("\n│ SUBNET END   │  %-91s │", ip_to_str(subnet_end, class.nw_addr_lsb, subnet_bitcnt));
         subnet_strt.addr += range;
         subnet_end.addr += range;
     }
