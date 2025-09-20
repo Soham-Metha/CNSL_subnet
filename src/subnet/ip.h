@@ -40,5 +40,6 @@ struct IP_Class {
 };
 
 IP_Class lookup(IP ip);
+unsigned char get_bit_cnt(unsigned char subnet_cnt);
 
 #endif
