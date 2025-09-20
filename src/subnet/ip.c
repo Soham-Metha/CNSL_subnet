@@ -25,7 +25,7 @@ unsigned char get_bit_cnt(unsigned char subnet_cnt)
     while ((1 << pow) < subnet_cnt) {
         pow += 1;
     }
-    return pow;
+    return pow + 1;
 }
 
 char byte_str[8] = "00000000";
