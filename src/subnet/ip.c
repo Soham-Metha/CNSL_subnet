@@ -43,7 +43,7 @@ const char* ip_to_str(IP ip)
     static char buf[51];
     char* ptr = buf;
 
-    ptr += sprintf(ptr, "%3hhu.%3hhu.%3hhu.%3hhu | ",
+    ptr += sprintf(ptr, "%3hhu.%3hhu.%3hhu.%3hhu │ ",
         ip.octet[3], ip.octet[2], ip.octet[1], ip.octet[0]);
 
     ptr += sprintf(ptr, "%s.", get_bits(ip.octet[3]));
