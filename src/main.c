@@ -15,8 +15,8 @@ int main()
         printf("\nWARN: Only read %d octet(s), defaulted remining octets to 0.\n", cnt);
     }
     printf("\n----------------------------------------");
-    printf("\nIP    |  %hhu.%hhu.%hhu.%hhu            ", ip.octet[3], ip.octet[2], ip.octet[1], ip.octet[0]);
-    printf("\nMASK  |  %hhu.%hhu.%hhu.%hhu            ", mask.octet[3], mask.octet[2], mask.octet[1], mask.octet[0]);
+    printf("\nIP    |  %3hhu.%3hhu.%3hhu.%3hhu        ", ip.octet[3], ip.octet[2], ip.octet[1], ip.octet[0]);
+    printf("\nMASK  |  %3hhu.%3hhu.%3hhu.%3hhu        ", mask.octet[3], mask.octet[2], mask.octet[1], mask.octet[0]);
     printf("\nCLASS |  %s                             ", class.class_name);
     printf("\n----------------------------------------\n\n");
     printf("%u\n", mask.as_int);
