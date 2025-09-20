@@ -40,14 +40,14 @@ int main()
 
     //===========================================================================================
     printf("\n┌──────────────────────────────────────────────────────────────────────────────┐");
-    printf("\n│ IP                 │  %51s │", ip_to_str(ip));
-    printf("\n│ MASK               │  %51s │", ip_to_str(mask));
+    printf("\n│ IP                 │  %-54s │", ip_to_str(ip));
+    printf("\n│ MASK               │  %-54s │", ip_to_str(mask));
     printf("\n│ CLASS              │  %-54s │", class.class_name);
     printf("\n├──────────────────────────────────────────────────────────────────────────────┤");
-    printf("\n│ SUBNET MASK        │  %51s │", ip_to_str(sub_mask));
-    printf("\n│ FIRST SUBNET START │  %51s │", ip_to_str(first_subnet_strt));
-    printf("\n│ FIRST SUBNET END   │  %51s │", ip_to_str(first_subnet_end));
-    printf("\n│ RANGE              │  %d │", cnt);
+    printf("\n│ SUBNET MASK        │  %-54s │", ip_to_str(sub_mask));
+    printf("\n│ FIRST SUBNET START │  %-54s │", ip_to_str(first_subnet_strt));
+    printf("\n│ FIRST SUBNET END   │  %-54s │", ip_to_str(first_subnet_end));
+    printf("\n│ RANGE              │  %-54d │", cnt);
     printf("\n└──────────────────────────────────────────────────────────────────────────────┘\n\n");
 
     return 0;
