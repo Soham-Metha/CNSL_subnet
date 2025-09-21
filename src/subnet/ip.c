@@ -49,7 +49,7 @@ const char* ip_to_str(IP_addr ip, uint8_t nw_addr_lsb, uint8_t subnet_lsb)
             if (i == nw_addr_lsb) ptr += sprintf(ptr, "\033[36m"); // if current bit is lsb of nw addr, next bit is the start of subnet addr
             if (i == subnet_lsb)  ptr += sprintf(ptr, "\033[31m"); // if current bit is lsb of subnet addr, next bit is the start of host addr
         }
-        ptr += sprintf(ptr, "\033[0m ");
+        (void)sprintf(ptr, "\033[0m ");
     }
     return buf;
 }
