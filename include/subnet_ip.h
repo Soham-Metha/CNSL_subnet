@@ -21,15 +21,15 @@
         }                                         \
     } while (0)
 
-typedef union  IP_addr      IP_addr;
-typedef struct Subnet_Range Subnet_Range;
-typedef struct Subnet  Subnet;
-typedef struct IP_Class     IP_Class;
 typedef struct IP           IP;
+typedef union  IP_addr      IP_addr;
+typedef struct IP_Class     IP_Class;
+typedef struct Subnet_Range Subnet_Range;
+typedef struct Subnet       Subnet;
 
 union IP_addr {
     uint8_t  octet[4];
-    uint32_t addr;
+    uint32_t as_u32;
 };
 
 struct IP_Class {
@@ -57,8 +57,8 @@ struct IP {
     Subnet   subnet;
 };
 
-IP_Class lookup(IP_addr ip);
-uint8_t get_bit_cnt(uint32_t subnet_cnt);
+IP_Class    lookup(IP_addr ip);
+uint8_t     get_bit_cnt(uint32_t subnet_cnt);
 const char* ip_to_str(IP_addr ip, uint8_t mask_start_at, uint8_t subnet_lsb);
 
 #endif

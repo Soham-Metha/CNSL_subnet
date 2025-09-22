@@ -19,7 +19,7 @@ int main()
 
     {     // determine IP Class & Mask
         ip.nw = lookup(ip.addr);
-        SET_BITS(ip.mask.addr, ip.nw.lsb_pos, IP_ADDRESS_SIZE - 1);
+        SET_BITS(ip.mask.as_u32, ip.nw.lsb_pos, IP_ADDRESS_SIZE - 1);
     }
 
     {     // Read Subnet Count
@@ -32,16 +32,16 @@ int main()
     {     // determine the no. of bits to borrow, position of the bits
         ip.subnet.bit_cnt = get_bit_cnt(ip.subnet.cnt);
         ip.subnet.lsb_pos = ip.nw.lsb_pos - ip.subnet.bit_cnt;
-        SET_BITS(ip.subnet.mask.addr, ip.subnet.lsb_pos, IP_ADDRESS_SIZE - 1);
+        SET_BITS(ip.subnet.mask.as_u32, ip.subnet.lsb_pos, IP_ADDRESS_SIZE - 1);
     }
 
     {     // Determine the subnet range, & the first,last addresses
         range = (Subnet_Range) {
             .size = 1 << ip.subnet.lsb_pos,
-            .strt = { .addr = ip.addr.addr & ip.subnet.mask.addr },
-            .end  = { .addr = ip.addr.addr & ip.subnet.mask.addr },
+            .strt = { .as_u32 = ip.addr.as_u32 & ip.subnet.mask.as_u32 },
+            .end  = { .as_u32 = ip.addr.as_u32 & ip.subnet.mask.as_u32 },
         };
-        SET_BITS(range.end.addr, 0, ip.subnet.lsb_pos - 1);
+        SET_BITS(range.end.as_u32, 0, ip.subnet.lsb_pos - 1);
     }
 
     //===========================================================================================
@@ -70,21 +70,6 @@ int main()
     printf("\n│ SUBNET END   │  %-54s │", ip_to_str(range.end, ip.nw.lsb_pos, ip.subnet.lsb_pos));
     printf("\n│              │  %-54s │", "");
     printf("\n└────────────────────────────────────────────────────────────────────────┘\n");
-
-    //===========================================================================================
-
-    // for (int i = 1; i <= ip.subnet.cnt; i++) {     // print all subnet ranges
-    //     printf("\n┌────────────────────────────────────────────────────────────────────────┐");
-    //     printf("\n│              │  %-54s │", "");
-    //     printf("\n│ SUBNET NO.   │  %-54d │", i);
-    //     printf("\n│ SUBNET START │  %-54s │", ip_to_str(range.strt, ip.nw.lsb_pos, ip.subnet.lsb_pos));
-    //     printf("\n│ SUBNET END   │  %-54s │", ip_to_str(range.end, ip.nw.lsb_pos, ip.subnet.lsb_pos));
-    //     printf("\n│              │  %-54s │", "");
-    //     printf("\n└────────────────────────────────────────────────────────────────────────┘\n");
-    //     range.strt.addr += range.size;
-    //     range.end.addr += range.size;
-    //     // !BEFORE PRINTING, ensure that you apply the default mask instead of subnet mask!
-    // }
 
     return 0;
 }

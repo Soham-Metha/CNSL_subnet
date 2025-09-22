@@ -43,7 +43,7 @@ const char* ip_to_str(IP_addr ip, uint8_t nw_addr_lsb, uint8_t subnet_lsb)
         ptr += sprintf(ptr, "\033[34m"); // Color for the nw addr
         for (int8_t i = 31; i >= 0; i--) {
 
-            ptr += sprintf(ptr, "%c", TEST_BIT(ip.addr, i) ? '1' : '0');
+            ptr += sprintf(ptr, "%c", TEST_BIT(ip.as_u32, i) ? '1' : '0');
             if (i % 8 == 0 && i != 0)  ptr += sprintf(ptr, ".");
 
             if (i == nw_addr_lsb) ptr += sprintf(ptr, "\033[36m"); // if current bit is lsb of nw addr, next bit is the start of subnet addr
