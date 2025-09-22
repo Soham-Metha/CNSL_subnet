@@ -19,12 +19,18 @@ endef
 
 SRC_DIR   := ./src
 MAIN_FILE := $(SRC_DIR)/main.c
-EXEC_FILE := $(BUILDS)/a
+EXEC_FILE := $(BUILDS)/subnet_calc
 SRC_FILES := $(filter-out $(MAIN_FILE), 	$(wildcard $(SRC_DIR)/*.c) )
 
 $(eval $(call BUILD_RULE, $(EXEC_FILE), $(MAIN_FILE) $(SRC_FILES)))
 
 all: $(EXEC_FILE)
 
+MY_IP   := 192.168.4.1
+SUB_CNT := 4
+PING_IP := google.com
+
 run_all: all
-	@$(EXEC_FILE)
+	@$(EXEC_FILE) --ip $(MY_IP) --subnet-cnt $(SUB_CNT)
+	@ping $(PING_IP) -v -c 10
+	@echo "Exit code: $$?"
