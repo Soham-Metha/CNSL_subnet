@@ -1,32 +1,28 @@
+#include <Utils/cmd_line.h>
 #include <subnet_ip.h>
 
-int main()
+int main(int argc, char** argv)
 {
+    cli_flag_push("--ip", "IP whose subnet is to be checked");
+    cli_flag_push("--subnet-cnt", "Number of subnets in current network");
+    cli_parse(&argc, &argv);
     //===========================================================================================
-    IP ip              = { 0 };
-    Subnet_Range range = { 0 };
-    {     // Read IP Addr
-        printf("Enter IP: ");
-        int octets_read = scanf("%hhu.%hhu.%hhu.%hhu",
-            &ip.addr.octet[3], &ip.addr.octet[2], &ip.addr.octet[1], &ip.addr.octet[0]);
-        if (octets_read < 1)   ip.addr.octet[3] = 192;
-        if (octets_read < 2)   ip.addr.octet[2] = 168;
-        if (octets_read < 3)   ip.addr.octet[1] = 4;
-        if (octets_read < 4) { ip.addr.octet[0] = 1;
-            printf("WARN: Only read %d octet(s), defaulted remining octet(s) to <192>.<168>.<4>.<1>\n", octets_read);
-        }
+    IP ip                     = { 0 };
+    Subnet_Range range        = { 0 };
+
+    String_View subnet_cnt_sv = cli_flag_get_val(STR("--subnet-cnt"));
+    ip.subnet.cnt             = sv_to_uint(&subnet_cnt_sv);
+
+    String_View ip_sv         = cli_flag_get_val(STR("--ip"));
+    uint8_t octet_cnt         = IP_ADDRESS_SIZE/8;
+    while (ip_sv.len) {
+        String_View octet_sv       = sv_split_by_delim(&ip_sv, '.');
+        ip.addr.octet[--octet_cnt] = sv_to_uint(&octet_sv);
     }
 
     {     // determine IP Class & Mask
         ip.nw = lookup(ip.addr);
         SET_BITS(ip.mask.as_u32, ip.nw.lsb_pos, IP_ADDRESS_SIZE - 1);
-    }
-
-    {     // Read Subnet Count
-        printf("Enter Subnet Count: ");
-        if (scanf("%u", &ip.subnet.cnt) < 1) {
-            printf("WARN: Subnet count not entered, defaulted to 0.\n");
-        }
     }
 
     {     // determine the no. of bits to borrow, position of the bits
@@ -106,6 +102,6 @@ int main()
  * Subnet is identified by the subnet bits,
  *     000 => SUBNET 1,  001 => SUBNET 2,  010 => SUBNET 3, ... 110 => SUBNET 7,  111 => SUBNET 8
  * Although the 8th subnet is created, it's not needed, hence wasted.
- * 
+ *
  * If we apply the subnet mask to any IP, we get it's nw & subnet address.
  */
