@@ -14,6 +14,7 @@
         (val) |= (1 << (pos));            \
     } while (0)
 
+// for a given 32-bit value, set bits `start` to `stop`(inclusive)
 #define SET_BITS(val, start, stop)                \
     do {                                          \
         for (int i = (start); i <= (stop); i++) { \

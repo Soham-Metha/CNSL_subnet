@@ -5,21 +5,31 @@ int main(int argc, char** argv)
 {
     cli_flag_push("--ip", "IP whose subnet is to be checked");
     cli_flag_push("--subnet-cnt", "Number of subnets in current network");
+    cli_flag_push("--to-ping", "IP to be pinged");
     cli_parse(&argc, &argv);
-    //===========================================================================================
+
     IP ip                     = { 0 };
+    IP_addr target            = { 0 };
     Subnet_Range range        = { 0 };
 
     String_View subnet_cnt_sv = cli_flag_get_val(STR("--subnet-cnt"));
     ip.subnet.cnt             = sv_to_uint(&subnet_cnt_sv);
 
     String_View ip_sv         = cli_flag_get_val(STR("--ip"));
-    uint8_t octet_cnt         = IP_ADDRESS_SIZE/8;
+    uint8_t octet_cnt         = IP_ADDRESS_SIZE / 8;
     while (ip_sv.len) {
         String_View octet_sv       = sv_split_by_delim(&ip_sv, '.');
         ip.addr.octet[--octet_cnt] = sv_to_uint(&octet_sv);
     }
 
+    String_View to_ip_sv     = cli_flag_get_val(STR("--to-ping"));
+    uint8_t target_octet_cnt = IP_ADDRESS_SIZE / 8;
+    while (to_ip_sv.len) {
+        String_View octet_sv             = sv_split_by_delim(&to_ip_sv, '.');
+        target.octet[--target_octet_cnt] = sv_to_uint(&octet_sv);
+    }
+
+    //===========================================================================================
     {     // determine IP Class & Mask
         ip.nw = lookup(ip.addr);
         SET_BITS(ip.mask.as_u32, ip.nw.lsb_pos, IP_ADDRESS_SIZE - 1);
@@ -33,40 +43,50 @@ int main(int argc, char** argv)
 
     {     // Determine the subnet range, & the first,last addresses
         range = (Subnet_Range) {
-            .size = 1 << ip.subnet.lsb_pos,
-            .strt = { .as_u32 = ip.addr.as_u32 & ip.subnet.mask.as_u32 },
-            .end  = { .as_u32 = ip.addr.as_u32 & ip.subnet.mask.as_u32 },
+            .size        = 1 << ip.subnet.lsb_pos,
+            .strt.as_u32 = ip.addr.as_u32 & ip.subnet.mask.as_u32,
+            .end.as_u32  = ip.addr.as_u32 & ip.subnet.mask.as_u32,
         };
         SET_BITS(range.end.as_u32, 0, ip.subnet.lsb_pos - 1);
     }
-
     //===========================================================================================
-    {     // print the details
-        printf("\n┌────────────────────────────────────────────────────────────────────────┐");
-        printf("\n│              │  %-54s │", "");
-        printf("\n│ IP           │  %-54s │", ip_to_str(ip.addr, ip.nw.lsb_pos, ip.nw.lsb_pos));
-        printf("\n│ MASK         │  %-54s │", ip_to_str(ip.mask, ip.nw.lsb_pos, ip.nw.lsb_pos));
-        printf("\n│ CLASS        │  %-54s │", ip.nw.class_name);
-        printf("\n│ SUBNETS REQ  │  %-54d │", ip.subnet.cnt);
-        printf("\n│              │  %-54s │", "");
-        printf("\n├────────────────────────────────────────────────────────────────────────┤");
-        printf("\n│              │  %-54s │", "");
-        printf("\n│ SUBNET MASK  │  %-54s │", ip_to_str(ip.subnet.mask, ip.nw.lsb_pos, ip.subnet.lsb_pos));
-        printf("\n│ SUBNET BITS  │  %-54d │", ip.subnet.bit_cnt);
-        printf("\n│ RANGE        │  %-54d │", range.size);
-        printf("\n│ USABLE       │  %-54d │", (range.size > 2) ? range.size - 2 : 0);
-        printf("\n│              │  %-54s │", "");
-        printf("\n└────────────────────────────────────────────────────────────────────────┘\n");
-    }
+
+    printf("\n┌────────────────────────────────────────────────────────────────────────┐");
+    printf("\n│              │  %-54s │", "");
+    printf("\n│ IP           │  %-54s │", ip_to_str(ip.addr, ip.nw.lsb_pos, ip.nw.lsb_pos));
+    printf("\n│ MASK         │  %-54s │", ip_to_str(ip.mask, ip.nw.lsb_pos, ip.nw.lsb_pos));
+    printf("\n│ CLASS        │  %-54s │", ip.nw.class_name);
+    printf("\n│ SUBNETS REQ  │  %-54d │", ip.subnet.cnt);
+    printf("\n│              │  %-54s │", "");
+    printf("\n├────────────────────────────────────────────────────────────────────────┤");
+    printf("\n│              │  %-54s │", "");
+    printf("\n│ SUBNET MASK  │  %-54s │", ip_to_str(ip.subnet.mask, ip.nw.lsb_pos, ip.subnet.lsb_pos));
+    printf("\n│ SUBNET BITS  │  %-54d │", ip.subnet.bit_cnt);
+    printf("\n│ RANGE        │  %-54d │", range.size);
+    printf("\n│ USABLE       │  %-54d │", (range.size > 2) ? range.size - 2 : 0);
+    printf("\n│              │  %-54s │", "");
+    printf("\n└────────────────────────────────────────────────────────────────────────┘\n");
 
     printf("\n┌────────────────────────────────────────────────────────────────────────┐");
     printf("\n│              │  %-54s │", "");
     printf("\n│ IP           │  %-54s │", ip_to_str(ip.addr, ip.nw.lsb_pos, ip.subnet.lsb_pos));
+    printf("\n│ TARGET       │  %-54s │", ip_to_str(target, ip.nw.lsb_pos, ip.subnet.lsb_pos));
     printf("\n│ SUBNET START │  %-54s │", ip_to_str(range.strt, ip.nw.lsb_pos, ip.subnet.lsb_pos));
     printf("\n│ SUBNET END   │  %-54s │", ip_to_str(range.end, ip.nw.lsb_pos, ip.subnet.lsb_pos));
     printf("\n│              │  %-54s │", "");
     printf("\n└────────────────────────────────────────────────────────────────────────┘\n");
 
+    if (target.as_u32 == range.end.as_u32) {
+        printf("\nTarget address is the broadcast address!!\n\n\n");
+        return 1;
+    } else if (target.as_u32 == range.strt.as_u32) {
+        printf("\nTarget address is the network address!!\n\n\n");
+        return 1;
+    } else if (target.as_u32 < range.strt.as_u32 || target.as_u32 > range.end.as_u32) {
+        printf("\nTarget address from a different network/subnet!!\n\n\n");
+        return 1;
+    }
+    printf("\nTarget address from the same subnet, pinging!!\n\n\n");
     return 0;
 }
 

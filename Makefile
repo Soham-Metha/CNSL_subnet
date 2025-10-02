@@ -1,7 +1,7 @@
 BUILDS := ./build
 
 CC	   := gcc
-CFLAGS := -Wall -Wextra -Werror -Wfatal-errors -Wswitch-enum -pedantic -O3 -std=c2x
+CFLAGS := -Wall -Wextra -Werror -Wfatal-errors -Wswitch-enum -pedantic -O3 -std=c2x -ggdb
 LIBS   := -lncursesw -I ./include
 
 $(BUILDS):
@@ -28,9 +28,12 @@ all: $(EXEC_FILE)
 
 MY_IP   := 192.168.4.1
 SUB_CNT := 4
-PING_IP := google.com
+PING_IP := 192.168.4.62
 
 run_all: all
-	@$(EXEC_FILE) --ip $(MY_IP) --subnet-cnt $(SUB_CNT)
-	@ping $(PING_IP) -v -c 10
+	@$(EXEC_FILE) --ip $(MY_IP) --subnet-cnt $(SUB_CNT) --to-ping $(PING_IP) && ping $(PING_IP) -v -c 10
+	@echo "Exit code: $$?"
+
+test_all:
+	@gdb --args $(EXEC_FILE) --ip $(MY_IP) --subnet-cnt $(SUB_CNT) --to-ping $(PING_IP)
 	@echo "Exit code: $$?"
